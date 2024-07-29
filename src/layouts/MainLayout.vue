@@ -25,6 +25,7 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-width: 1200px;
 }
 
 .container {
