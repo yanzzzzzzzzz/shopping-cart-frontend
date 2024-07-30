@@ -20,28 +20,22 @@
   </nav>
 </template>
 
-<script>
-export default {
-  name: 'Navbar',
-};
-</script>
+<script setup></script>
 
 <style scoped>
 .navbar {
-  background-color: #333;
-  color: white;
+  background-color: var(--p-primary-color) !important;
+  color: var(--p-text-color) !important;
   padding: 1rem;
-  overflow: auto; /* Ensure scrollbars appear if content overflows */
 }
 
 .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px; /* Fixed width */
-  margin: 0 auto; /* Center container horizontally */
-  padding: 0 1rem; /* Optional horizontal padding */
-  box-sizing: border-box; /* Ensure padding is included in the width */
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .navbar-section {
@@ -53,7 +47,7 @@ export default {
 }
 
 .navbar-brand a {
-  color: white;
+  color: var(--p-text-color) !important;
   text-decoration: none;
   font-size: 1.5rem;
 }
@@ -65,24 +59,24 @@ export default {
 .navbar-search input {
   padding: 0.5rem;
   margin-right: 1rem;
-  border-radius: 4px;
+  border-radius: var(--p-border-radius);
   border: none;
 }
 
 .popular-searches {
   display: inline-block;
   margin-top: 0.5rem;
-  color: #ccc;
+  color: var(--p-text-color-secondary) !important;
 }
 
 .popular-searches span {
-  margin-right: 0.5rem;
+  margin-right: var(--p-inline-spacing);
 }
 
 .popular-searches a {
-  color: #ccc;
+  color: var(--p-text-color-secondary) !important;
   text-decoration: none;
-  margin-right: 0.5rem;
+  margin-right: var(--p-inline-spacing);
 }
 
 .popular-searches a:hover {
@@ -94,7 +88,7 @@ export default {
 }
 
 .navbar-cart a {
-  color: white;
+  color: var(--p-text-color) !important;
   text-decoration: none;
 }
 </style>

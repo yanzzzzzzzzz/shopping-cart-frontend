@@ -37,7 +37,9 @@ export default {
 }
 
 .content {
-  margin: 0 auto; /* Center content horizontally */
-  padding: 0 1rem; /* Add horizontal padding */
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: var(--p-content-padding);
+  background-color: var(--p-surface-ground);
 }
 </style>

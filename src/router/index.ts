@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/Home.vue';
 import MainLayout from '../layouts/MainLayout.vue';
+import ShopView from '../views/ShopView.vue';
 const routes = [
   {
     path: '/',
@@ -8,7 +8,7 @@ const routes = [
     children: [
       {
         path: '',
-        component: Home,
+        component: ShopView,
       },
     ],
   },
