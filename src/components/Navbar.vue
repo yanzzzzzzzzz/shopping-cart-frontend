@@ -47,7 +47,7 @@
 }
 
 .navbar-brand a {
-  color: var(--p-text-color) !important;
+  color: var(--p-primary-contrast-color) !important;
   text-decoration: none;
   font-size: 1.5rem;
 }
@@ -66,7 +66,7 @@
 .popular-searches {
   display: inline-block;
   margin-top: 0.5rem;
-  color: var(--p-text-color-secondary) !important;
+  color: var(--p-primary-contrast-color) !important;
 }
 
 .popular-searches span {
@@ -88,7 +88,7 @@
 }
 
 .navbar-cart a {
-  color: var(--p-text-color) !important;
+  color: var(--p-primary-contrast-color) !important;
   text-decoration: none;
 }
 </style>
