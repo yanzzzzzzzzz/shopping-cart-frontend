@@ -5,7 +5,8 @@
         <router-link to="/">123 Shop</router-link>
       </div>
       <div class="navbar-section navbar-search">
-        <input type="text" placeholder="Search..." />
+        <InputText type="text" placeholder="Search..." />
+
         <div class="popular-searches">
           <span>熱門搜尋：</span>
           <router-link to="/search?q=product1">產品1</router-link>
@@ -20,7 +21,9 @@
   </nav>
 </template>
 
-<script setup></script>
+<script setup>
+import InputText from 'primevue/inputtext';
+</script>
 
 <style scoped>
 .navbar {
