@@ -31,8 +31,7 @@ export default {
 .container {
   margin-left: auto;
   margin-right: auto;
-  width: 1200px; /* Fixed width */
-  padding: 0 1rem; /* Optional horizontal padding */
+  width: 1000px; /* Fixed width */
   box-sizing: border-box; /* Ensure padding is included in the width */
 }
 

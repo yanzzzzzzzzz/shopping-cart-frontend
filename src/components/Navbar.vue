@@ -29,14 +29,14 @@ import InputText from 'primevue/inputtext';
 .navbar {
   background-color: var(--p-primary-color) !important;
   color: var(--p-text-color) !important;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   box-sizing: border-box;
 }

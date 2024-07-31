@@ -13,6 +13,6 @@ import ProductList from '@/components/ProductList.vue';
 <style scoped>
 .shop {
   display: flex;
-  padding: 20px;
+  padding: 20px 0;
 }
 </style>

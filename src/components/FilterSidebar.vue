@@ -71,7 +71,6 @@ const selectedCategories = ref([]);
 <style scoped>
 .filter-sidebar {
   width: 200px;
-  padding: 20px;
   border-right: 1px solid #ddd;
 }
 
