@@ -1,23 +1,27 @@
 <template>
-  <div class="product-card">
-    <h3>{{ product.name }}</h3>
-    <p>價格：{{ product.price }}</p>
-  </div>
+  <Card>
+    <template #title>
+      {{ product.name }}
+    </template>
+    <template #content>
+      <img :src="product.image" alt="Product Image" class="product-image" />
+      <p>{{ product.description }}</p>
+      <h3>{{ product.price }}</h3>
+    </template>
+  </Card>
 </template>
 
 <script setup>
 import { defineProps } from 'vue';
-
+import Card from 'primevue/card';
 const props = defineProps({
   product: Object,
 });
 </script>
 
 <style scoped>
-.product-card {
-  border: 1px solid #ddd;
-  padding: 10px;
-  width: 200px;
-  text-align: center;
+.product-image {
+  width: 100%;
+  height: auto;
 }
 </style>

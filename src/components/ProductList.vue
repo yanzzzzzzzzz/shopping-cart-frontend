@@ -1,15 +1,16 @@
 <template>
   <div class="product-list">
     <div class="sort-bar">
-      <button>綜合排序</button>
-      <button>新品</button>
-      <button>價格</button>
+      <Button label="綜合排名" />
+      <Button label="最新" />
+      <Button label="最熱銷" />
     </div>
     <div class="products">
       <ProductCard
         v-for="product in products"
         :key="product.id"
         :product="product"
+        class="product-item"
       />
     </div>
   </div>
@@ -17,11 +18,38 @@
 
 <script setup>
 import ProductCard from '@/components/ProductCard.vue';
-
+import Button from 'primevue/button';
 const products = [
-  { id: 1, name: 'iPhone 12 Pro Max', price: 490000 },
-  { id: 2, name: 'OPPO RENO4Z', price: 1300 },
-  // 更多產品資料
+  {
+    id: 1,
+    name: 'iPhone 12 Pro Max',
+    price: 490000,
+    description: '這是商品1的描述',
+  },
+  {
+    id: 2,
+    name: 'OPPO RENO4Z',
+    price: 1300,
+    description: '這是商品2的描述',
+  },
+  {
+    id: 3,
+    name: 'iPhone 12 Pro Max',
+    price: 490000,
+    description: '這是商品1的描述',
+  },
+  {
+    id: 4,
+    name: 'OPPO RENO4Z',
+    price: 1300,
+    description: '這是商品2的描述',
+  },
+  {
+    id: 5,
+    name: 'iPhone 12 Pro Max',
+    price: 490000,
+    description: '這是商品1的描述',
+  },
 ];
 </script>
 
@@ -33,13 +61,20 @@ const products = [
 
 .sort-bar {
   display: flex;
-  justify-content: space-between;
   margin-bottom: 20px;
+}
+.sort-bar Button {
+  margin-right: 10px;
 }
 
 .products {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
+}
+.product-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
