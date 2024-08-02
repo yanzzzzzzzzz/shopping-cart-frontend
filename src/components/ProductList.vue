@@ -24,31 +24,44 @@ const products = [
     id: 1,
     name: 'iPhone 12 Pro Max',
     price: 490000,
-    description: '這是商品1的描述',
+    description: '這是商品1的描述fdsadwqevxzcv',
+    image:
+      'https://www.jyes.com.tw/data/goods/gallery/202010/1602666830323793536.jpg',
+    rating: 4.5,
   },
   {
     id: 2,
     name: 'OPPO RENO4Z',
     price: 1300,
-    description: '這是商品2的描述',
+    description: '這是商品2的描述fd',
+    image: 'https://img.eprice.com.tw/img/mobile/6385/large.png',
+    rating: 4.3,
   },
   {
     id: 3,
     name: 'iPhone 12 Pro Max',
     price: 490000,
     description: '這是商品1的描述',
+    image:
+      'https://www.jyes.com.tw/data/goods/gallery/202010/1602666830323793536.jpg',
+    rating: 5,
   },
   {
     id: 4,
     name: 'OPPO RENO4Z',
     price: 1300,
     description: '這是商品2的描述',
+    image: 'https://img.eprice.com.tw/img/mobile/6385/large.png',
+    rating: 4.3,
   },
   {
     id: 5,
     name: 'iPhone 12 Pro Max',
     price: 490000,
     description: '這是商品1的描述',
+    image:
+      'https://www.jyes.com.tw/data/goods/gallery/202010/1602666830323793536.jpg',
+    rating: 4.3,
   },
 ];
 </script>

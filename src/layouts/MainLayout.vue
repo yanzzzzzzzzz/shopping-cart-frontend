@@ -26,6 +26,7 @@ export default {
   flex-direction: column;
   min-height: 100vh;
   min-width: 1200px;
+  background-color: whitesmoke;
 }
 
 .container {
