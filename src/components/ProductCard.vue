@@ -2,12 +2,14 @@
   <Card class="hover-card border-noround cursor-pointer">
     <template #content>
       <img :src="product.image" alt="Product Image" class="product-image" />
-      <p>{{ product.description }}</p>
-      <h3>${{ product.price }}</h3>
-      <p>
-        <i class="pi pi-star-fill star-color"></i> {{ product.rating }} 已售出
-        1.7萬
-      </p>
+      <div class="justify-content-between flex flex-column">
+        <p class="description">{{ product.description }}</p>
+        <h3>${{ product.price }}</h3>
+        <p>
+          <i class="pi pi-star-fill star-color"></i> {{ product.rating }} 已售出
+          1.7萬
+        </p>
+      </div>
     </template>
   </Card>
 </template>
@@ -37,5 +39,12 @@ const props = defineProps({
 .hover-card:hover {
   border-color: var(--p-primary-color);
   transform: scale(1.03);
+}
+.description {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  overflow: hidden;
+  min-height: 2.5rem;
 }
 </style>
