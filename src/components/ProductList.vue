@@ -24,7 +24,8 @@ const products = [
     id: 1,
     name: 'iPhone 12 Pro Max',
     price: 490000,
-    description: '這是商品1的描述fdsadwqevxzcv',
+    description:
+      '這是商品1的描述fdsadwqevxzcv商品1的描述fdsadwqevxzcv商品1的描述fdsadwqevxzcv商品1的描述fdsadwqevxzcv',
     image:
       'https://www.jyes.com.tw/data/goods/gallery/202010/1602666830323793536.jpg',
     rating: 4.5,
