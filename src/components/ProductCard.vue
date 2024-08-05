@@ -1,13 +1,17 @@
 <template>
-  <Card class="hover-card border-noround cursor-pointer">
+  <Card v-if="props.product" class="hover-card border-noround cursor-pointer">
     <template #content>
-      <img :src="product.image" alt="Product Image" class="product-image" />
+      <img
+        :src="props.product.image"
+        alt="Product Image"
+        class="product-image"
+      />
       <div class="justify-content-between flex flex-column">
-        <p class="description">{{ product.description }}</p>
-        <h3>${{ product.price }}</h3>
+        <p class="description">{{ props.product.description }}</p>
+        <h3>${{ props.product.price }}</h3>
         <p>
-          <i class="pi pi-star-fill star-color"></i> {{ product.rating }} 已售出
-          1.7萬
+          <i class="pi pi-star-fill star-color"></i>
+          {{ props.product.rating }} 已售出 1.7萬
         </p>
       </div>
     </template>
@@ -17,9 +21,10 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 import Card from 'primevue/card';
-const props = defineProps({
-  product: Object,
-});
+import { Product } from '@/Model/type';
+const props = defineProps<{
+  product?: Product;
+}>();
 </script>
 
 <style scoped>
