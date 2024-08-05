@@ -1,5 +1,9 @@
 <template>
-  <Card v-if="props.product" class="hover-card border-noround cursor-pointer">
+  <Card
+    v-if="props.product"
+    class="hover-card border-noround cursor-pointer"
+    @click="productDetail(props.product.id)"
+  >
     <template #content>
       <img
         :src="props.product.image"
@@ -22,9 +26,19 @@
 import { defineProps } from 'vue';
 import Card from 'primevue/card';
 import { Product } from '@/Model/type';
+import { useRouter } from 'vue-router';
 const props = defineProps<{
   product?: Product;
 }>();
+const router = useRouter();
+const productDetail = (id: number) => {
+  router.push({
+    name: 'product',
+    params: {
+      id: id,
+    },
+  });
+};
 </script>
 
 <style scoped>
