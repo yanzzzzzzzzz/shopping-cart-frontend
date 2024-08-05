@@ -34,5 +34,7 @@ import Navbar from '@/components/Navbar.vue';
   max-width: 1200px;
   padding: var(--p-content-padding);
   background-color: var(--p-surface-ground);
+  display: flex;
+  padding: 20px 0;
 }
 </style>
