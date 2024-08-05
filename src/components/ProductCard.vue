@@ -14,7 +14,7 @@
   </Card>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { defineProps } from 'vue';
 import Card from 'primevue/card';
 const props = defineProps({

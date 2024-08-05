@@ -9,15 +9,8 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import Navbar from '@/components/Navbar.vue';
-
-export default {
-  name: 'MainLayout',
-  components: {
-    Navbar,
-  },
-};
 </script>
 
 <style scoped>

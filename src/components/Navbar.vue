@@ -21,7 +21,7 @@
   </nav>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import InputText from 'primevue/inputtext';
 </script>
 
