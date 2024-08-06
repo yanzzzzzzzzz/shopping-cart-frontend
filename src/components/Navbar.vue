@@ -36,7 +36,7 @@ import InputText from 'primevue/inputtext';
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
 }

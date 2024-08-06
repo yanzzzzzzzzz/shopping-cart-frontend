@@ -25,7 +25,7 @@ import Navbar from '@/components/Navbar.vue';
 .container {
   margin-left: auto;
   margin-right: auto;
-  width: 1000px; /* Fixed width */
+  width: 1200px; /* Fixed width */
   box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
