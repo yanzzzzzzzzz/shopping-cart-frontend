@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar">
-    <div class="container">
+    <div class="container mt-3">
       <div class="navbar-section navbar-brand">
         <router-link to="/">123 Shop</router-link>
       </div>
