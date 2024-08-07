@@ -15,7 +15,11 @@
         </div>
       </div>
       <div class="navbar-section navbar-cart">
-        <router-link to="/cart">Cart</router-link>
+        <router-link
+          to="/cart"
+          class="pi pi-shopping-cart"
+          style="font-size: 2.5rem"
+        ></router-link>
       </div>
     </div>
   </nav>
