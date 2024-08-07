@@ -5,7 +5,8 @@
         <router-link to="/">123 Shop</router-link>
       </div>
       <div class="navbar-section navbar-search">
-        <InputText type="text" placeholder="Search..." />
+        <AutoComplete placeholder="search" inputStyle="width: 500px">
+        </AutoComplete>
 
         <div class="popular-searches">
           <span>熱門搜尋：</span>
@@ -26,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import InputText from 'primevue/inputtext';
+import AutoComplete from 'primevue/autocomplete';
 </script>
 
 <style scoped>
@@ -60,7 +61,7 @@ import InputText from 'primevue/inputtext';
 }
 
 .navbar-search {
-  text-align: center;
+  width: 500px;
 }
 
 .navbar-search input {
