@@ -1,10 +1,10 @@
 <template>
   <section class="flex bg-white mt-4">
-    <section class="p-2" style="width: 450px">
+    <section class="p-2" style="width: 480px">
       <Image
         src="https://down-tw.img.susercontent.com/file/tw-11134207-7r992-lycg4m1xr0ms69"
         alt="Image"
-        width="450"
+        width="480"
         preview
       />
     </section>
