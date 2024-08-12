@@ -6,3 +6,14 @@ export interface Product {
   image: string;
   rating: number;
 }
+export interface ProductData {
+  id: number;
+  name: string;
+  describe: string;
+  specs: {
+    category: string;
+    quantity: string;
+    brand: string;
+    origin: string;
+  };
+}

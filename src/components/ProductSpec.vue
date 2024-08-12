@@ -1,34 +1,52 @@
 <template>
   <div class="bg-white mt-3 p-5">
-    <div class="title">商品規格</div>
-    <div class="pt-2 m-2">
-      <div class="subtitle">
-        <label class="spec-label">分類</label>
-        <span>乳清蛋白</span>
+    <div v-if="productData">
+      <div class="title">商品規格</div>
+      <div class="pt-2 m-2">
+        <div
+          v-for="(value, key) in productData.specs"
+          :key="key"
+          class="subtitle"
+        >
+          <label class="spec-label">{{ translations[key] }}</label>
+          <span>{{ value }}</span>
+        </div>
       </div>
-      <div class="subtitle">
-        <label class="spec-label">商品數量</label>
-        <span>2647</span>
-      </div>
-      <div class="subtitle">
-        <label class="spec-label">品牌</label>
-        <span>BODY GOALS</span>
-      </div>
-      <div class="subtitle">
-        <label class="spec-label">產地</label>
-        <span> 台灣</span>
-      </div>
+      <div class="title">商品描述</div>
+      <div class="pt-2 m-2">{{ productData.describe }}</div>
     </div>
-    <div class="title">商品描述</div>
-    <div class="pt-2 m-2">{{ product.describe }}</div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { ProductData } from '@/Model/type';
 
-const product = ref({
-  describe: 'Body Goals 乳清蛋白飲 全素多效豌豆蛋白飲 31g',
+const productData = ref<ProductData | null>(null);
+
+const fetchProductData = async (productId: number) => {
+  productData.value = {
+    id: 1,
+    name: 'Body Goals 乳清蛋白飲',
+    describe: 'Body Goals 乳清蛋白飲 全素多效豌豆蛋白飲 31g',
+    specs: {
+      category: '乳清蛋白',
+      quantity: '2647',
+      brand: 'BODY GOALS',
+      origin: '台灣',
+    },
+  };
+};
+
+onMounted(() => {
+  fetchProductData(1);
 });
+
+const translations = {
+  category: '分類',
+  quantity: '商品數量',
+  brand: '品牌',
+  origin: '產地',
+};
 </script>
 <style scoped>
 .spec-label {
