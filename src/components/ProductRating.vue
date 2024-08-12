@@ -15,21 +15,29 @@
         </div>
       </div>
       <div class="wrapper flex-grow-1">
-        <Button class="rating-button" label="全部"></Button>
-        <Button class="rating-button" label="5星"></Button>
-        <Button class="rating-button" label="4星"></Button>
-        <Button class="rating-button" label="3星"></Button>
-        <Button class="rating-button" label="2星"></Button>
-        <Button class="rating-button" label="1星"></Button>
-        <Button class="rating-button" label="附上評論"></Button>
-        <Button class="rating-button" label="附上照片/影片"></Button>
+        <SelectButton
+          v-model="value"
+          :options="options"
+          aria-labelledby="basic"
+        ></SelectButton>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
-import Button from 'primevue/button';
+import SelectButton from 'primevue/selectbutton';
+const value = ref('全部');
+const options = ref([
+  '全部',
+  '5星',
+  '4星',
+  '3星',
+  '2星',
+  '1星',
+  '附上評論',
+  '附上照片/影片',
+]);
 const productRating = ref({
   score: 4.7,
 });
