@@ -22,11 +22,13 @@
         ></SelectButton>
       </div>
     </div>
+    <CommentList />
   </div>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
 import SelectButton from 'primevue/selectbutton';
+import CommentList from './CommentList.vue';
 const value = ref('全部');
 const options = ref([
   '全部',
