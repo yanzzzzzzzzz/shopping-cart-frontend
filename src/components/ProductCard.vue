@@ -11,9 +11,9 @@
         class="product-image"
       />
       <div class="justify-content-between flex flex-column">
-        <p class="description">{{ props.product.description }}</p>
-        <h3>${{ props.product.price }}</h3>
-        <p>
+        <p class="description my-1">{{ props.product.description }}</p>
+        <h3 class="my-1">${{ props.product.price }}</h3>
+        <p class="m-0">
           <i class="pi pi-star-fill star-color"></i>
           {{ props.product.rating }} 已售出 1.7萬
         </p>
@@ -44,8 +44,8 @@ const productDetail = (id: number) => {
 <style scoped>
 .product-image {
   width: 100%;
-  height: 200px; /* 固定高度 */
-  object-fit: cover; /* 保持圖片比例 */
+  height: 200px;
+  object-fit: cover;
 }
 .star-color {
   color: orange;
@@ -64,6 +64,6 @@ const productDetail = (id: number) => {
   -webkit-line-clamp: 2;
   display: -webkit-box;
   overflow: hidden;
-  min-height: 2.5rem;
+  min-height: 2rem;
 }
 </style>
