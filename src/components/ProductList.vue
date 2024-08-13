@@ -19,52 +19,22 @@
 <script setup lang="ts">
 import ProductCard from '@/components/ProductCard.vue';
 import Button from 'primevue/button';
-const products = [
-  {
-    id: 1,
-    name: 'iPhone 12 Pro Max',
-    price: 490000,
-    description:
-      '這是商品1的描述fdsadwqevxzcv商品1的描述fdsadwqevxzcv商品1的描述fdsadwqevxzcv商品1的描述fdsadwqevxzcv',
-    image:
-      'https://www.jyes.com.tw/data/goods/gallery/202010/1602666830323793536.jpg',
-    rating: 4.5,
-  },
-  {
-    id: 2,
-    name: 'OPPO RENO4Z',
-    price: 1300,
-    description: '這是商品2的描述fd',
-    image: 'https://img.eprice.com.tw/img/mobile/6385/large.png',
-    rating: 4.3,
-  },
-  {
-    id: 3,
-    name: 'iPhone 12 Pro Max',
-    price: 490000,
-    description: '這是商品1的描述',
-    image:
-      'https://www.jyes.com.tw/data/goods/gallery/202010/1602666830323793536.jpg',
-    rating: 5,
-  },
-  {
-    id: 4,
-    name: 'OPPO RENO4Z',
-    price: 1300,
-    description: '這是商品2的描述',
-    image: 'https://img.eprice.com.tw/img/mobile/6385/large.png',
-    rating: 4.3,
-  },
-  {
-    id: 5,
-    name: 'iPhone 12 Pro Max',
-    price: 490000,
-    description: '這是商品1的描述',
-    image:
-      'https://www.jyes.com.tw/data/goods/gallery/202010/1602666830323793536.jpg',
-    rating: 4.3,
-  },
-];
+import { ref, onMounted } from 'vue';
+import { getProductList } from '@/api/product.api';
+const products = ref([]);
+
+const fetchProducts = async () => {
+  try {
+    products.value = await getProductList();
+  } catch (error) {
+    console.error('獲取產品列表失敗:', error);
+    // 這裡可以添加錯誤處理邏輯，比如顯示錯誤消息給用戶
+  }
+};
+
+onMounted(() => {
+  fetchProducts();
+});
 </script>
 
 <style scoped>

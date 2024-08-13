@@ -6,7 +6,7 @@
   >
     <template #content>
       <img
-        :src="props.product.image"
+        :src="props.product.imageUrl"
         alt="Product Image"
         class="product-image"
       />
