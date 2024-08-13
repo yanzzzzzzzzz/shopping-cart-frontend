@@ -64,6 +64,6 @@ const productDetail = (id: number) => {
   -webkit-line-clamp: 2;
   display: -webkit-box;
   overflow: hidden;
-  min-height: 2rem;
+  min-height: 2.7rem;
 }
 </style>
