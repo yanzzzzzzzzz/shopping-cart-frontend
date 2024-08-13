@@ -8,7 +8,7 @@
         preview
       />
     </section>
-    <section class="px-3 py-2 mb-4">
+    <section class="px-3 py-2 mb-4 w-full">
       <div>
         <span class="text-2xl">
           {{ title }}
