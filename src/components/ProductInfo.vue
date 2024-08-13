@@ -69,7 +69,7 @@
                 buttonLayout="horizontal"
                 :min="0"
                 :max="99"
-                inputStyle="width: 50px; text-align: center;"
+                :inputStyle="{ width: '50px', textAlign: 'center' }"
               >
                 <template #incrementbuttonicon>
                   <span class="pi pi-plus" />
