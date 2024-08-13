@@ -98,37 +98,41 @@
 </template>
 <script setup lang="ts">
 import Image from 'primevue/image';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import InputNumber from 'primevue/inputnumber';
 import Button from 'primevue/button';
-const title = ref(
-  '【BODY GOALS 】多效乳清蛋白飲 bodygoals 乳清蛋白飲 植物性蛋 高蛋白豌豆蛋白 蛋白飲 素食高蛋白'
-);
-const rating = ref('4.9');
+import { ProductWithVariants } from '@/Model/type';
+
+interface Props {
+  productVariants: ProductWithVariants | null;
+}
+
+const props = defineProps<Props>();
+
+const title = computed(() => props.productVariants?.product.name || '');
+const rating = computed(() => props.productVariants?.product.rating || '0');
 const comment = ref(41);
 const sellNum = ref(1523);
-const prices = [37, 38, 39, 40, 41];
-const minPrice = Math.min(...prices);
-const maxPrice = Math.max(...prices);
-const productTypes = ref([
-  '【全素】馥郁奶茶/豌豆蛋白飲',
-  '【全素】靜岡抹茶/豌豆蛋白飲',
-  '【英式奶茶】多效乳清(奶素)',
-  '【全素】馥郁奶茶/豌豆蛋白飲',
-  '【全素】靜岡抹茶/豌豆蛋白飲',
-  '【英式奶茶】多效乳清(奶素)',
-  '【全素】馥郁奶茶/豌豆蛋白飲',
-  '【全素】靜岡抹茶/豌豆蛋白飲',
-  '【英式奶茶】多效乳清(奶素)',
-  '【全素】馥郁奶茶/豌豆蛋白飲',
-  '【全素】靜岡抹茶/豌豆蛋白飲',
-  '【英式奶茶】多效乳清(奶素)',
-  '【全素】馥郁奶茶/豌豆蛋白飲',
-  '【全素】靜岡抹茶/豌豆蛋白飲',
-  '【英式奶茶】多效乳清(奶素)',
-]);
+
+const prices = computed(
+  () => props.productVariants?.variants.map((v) => parseFloat(v.price)) || []
+);
+const minPrice = computed(() => Math.min(...prices.value));
+const maxPrice = computed(() => Math.max(...prices.value));
+
+const productTypes = computed(
+  () => props.productVariants?.variants.map((v) => v.variantName) || []
+);
+
 const value = ref(0);
-const amount = ref(1132);
+const amount = computed(() => {
+  return (
+    props.productVariants?.variants.reduce(
+      (sum, variant) => sum + variant.inventory,
+      0
+    ) || 0
+  );
+});
 </script>
 <style scoped>
 .primary-color {

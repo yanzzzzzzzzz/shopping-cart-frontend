@@ -17,3 +17,24 @@ export interface ProductData {
     origin: string;
   };
 }
+
+export interface ProductVariant {
+  variantName: string;
+  id: number;
+  productId: number;
+  price: string;
+  inventory: number;
+}
+
+export interface ProductWithVariants {
+  product: {
+    id: number;
+    name: string;
+    description: string;
+    price: string;
+    category: string;
+    imageUrl: string;
+    rating: string;
+  };
+  variants: ProductVariant[];
+}
