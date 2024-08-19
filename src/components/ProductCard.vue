@@ -23,7 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import Card from 'primevue/card';
 import { Product } from '@/Model/type';
 import { useRouter } from 'vue-router';
