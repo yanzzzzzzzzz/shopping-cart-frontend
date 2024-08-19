@@ -3,9 +3,13 @@
     <ProductBreadcrumb />
     <div v-if="isLoading">正在加載...</div>
     <template v-else>
-      <ProductInfo :productDetail="productData" />
-      <ProdcutShop />
+      <ProductInfo
+        :product="productData?.product"
+        :variants="productData?.variants"
+      />
+      <ProductShop />
       <ProductSpec :specs="productData?.specs" />
+      <ProductDescription :desc="productData?.product?.description" />
       <ProductRating />
     </template>
   </div>
@@ -19,11 +23,12 @@ import ProductInfo from '@/components/ProductInfo.vue';
 import ProdcutShop from '@/components/ProdcutShop.vue';
 import ProductSpec from '@/components/ProductSpec.vue';
 import ProductRating from '@/components/ProductRating.vue';
-import { ProductDetail } from '@/Model/type';
+import ProductDescription from '@/components/ProductDescription.vue';
+import { ProductData } from '@/Model/type';
 
 const route = useRoute();
 const productId = parseInt(route.params.id as string, 10);
-const productData = ref<ProductDetail | null>(null);
+const productData = ref<ProductData>();
 const isLoading = ref(true);
 
 onMounted(async () => {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ProductDetail } from '@/Model/type';
+import { ProductData } from '@/Model/type';
 
 export const Api = axios.create({
   baseURL: '/api/products',
@@ -17,7 +17,7 @@ export const getProductList = async () => {
 
 export const getProductDetail = async (
   productId: number
-): Promise<ProductDetail> => {
+): Promise<ProductData> => {
   try {
     const response = await Api.get(`/${productId}`);
     return response.data;

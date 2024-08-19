@@ -1,12 +1,7 @@
 <template>
-  <section class="flex bg-white mt-4">
+  <section v-if="props.product" class="flex bg-white mt-4">
     <section class="p-2" style="width: 480px">
-      <Image
-        :src="productDetail?.product.imageUrl"
-        alt="Image"
-        width="480"
-        preview
-      />
+      <Image :src="props.product.imageUrl" alt="Image" width="480" preview />
     </section>
     <section class="px-3 py-2 mb-4 w-full">
       <div>
@@ -101,36 +96,34 @@ import Image from 'primevue/image';
 import { ref, computed } from 'vue';
 import InputNumber from 'primevue/inputnumber';
 import Button from 'primevue/button';
-import { ProductDetail } from '@/Model/type';
+import { Product, ProductVariantModel } from '@/Model/type';
 
 interface Props {
-  productDetail: ProductDetail | null;
+  product: Product | undefined;
+  variants: ProductVariantModel[] | undefined;
 }
 
 const props = defineProps<Props>();
 
-const title = computed(() => props.productDetail?.product.name || '');
-const rating = computed(() => props.productDetail?.product.rating || '0');
+const title = computed(() => props.product?.name || '');
+const rating = computed(() => props.product?.rating || '0');
 const comment = ref(41);
 const sellNum = ref(1523);
 
 const prices = computed(
-  () => props.productDetail?.variants.map((v) => parseFloat(v.price)) || []
+  () => props.variants?.map((v) => parseFloat(v.price)) || []
 );
 const minPrice = computed(() => Math.min(...prices.value));
 const maxPrice = computed(() => Math.max(...prices.value));
 
 const productTypes = computed(
-  () => props.productDetail?.variants.map((v) => v.variantName) || []
+  () => props.variants?.map((v) => v.variantName) || []
 );
 
 const value = ref(0);
 const amount = computed(() => {
   return (
-    props.productDetail?.variants.reduce(
-      (sum, variant) => sum + variant.inventory,
-      0
-    ) || 0
+    props.variants?.reduce((sum, variant) => sum + variant.inventory, 0) || 0
   );
 });
 </script>

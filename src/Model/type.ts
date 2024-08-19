@@ -7,15 +7,9 @@ export interface Product {
   rating: number;
 }
 export interface ProductData {
-  id: number;
-  name: string;
-  describe: string;
-  specs: {
-    category: string;
-    quantity: string;
-    brand: string;
-    origin: string;
-  };
+  product: Product;
+  variants: ProductVariantModel[];
+  specs: Spec[];
 }
 
 export interface ProductVariantModel {
@@ -32,5 +26,4 @@ export interface Spec {
 export interface ProductDetail {
   product: Product;
   variants: ProductVariantModel[];
-  specs: Spec[];
 }
