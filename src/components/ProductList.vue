@@ -21,7 +21,8 @@ import ProductCard from '@/components/ProductCard.vue';
 import Button from 'primevue/button';
 import { ref, onMounted } from 'vue';
 import { getProductList } from '@/api/product.api';
-const products = ref([]);
+import { Product } from '@/Model/type';
+const products = ref<Product[]>();
 
 const fetchProducts = async () => {
   try {

@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { ProductData } from '@/Model/type';
+import { ProductData, Product } from '@/Model/type';
 
 export const Api = axios.create({
   baseURL: '/api/products',
 });
 
-export const getProductList = async () => {
+export const getProductList = async (): Promise<Product[]> => {
   try {
     const response = await Api.get('/');
     return response.data;

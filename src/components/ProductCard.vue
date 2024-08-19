@@ -11,7 +11,7 @@
         class="product-image"
       />
       <div class="justify-content-between flex flex-column">
-        <p class="description my-1">{{ props.product.description }}</p>
+        <p class="description my-1">{{ props.product.name }}</p>
         <h3 class="my-1">${{ props.product.price }}</h3>
         <p class="m-0">
           <i class="pi pi-star-fill star-color"></i>
