@@ -50,7 +50,13 @@
           <section class="flex product-info align-items-baseline">
             <h3 class="sub-title">類型</h3>
             <div class="flex align-items-center type-select">
-              <button v-for="productType in productTypes" class="type-button">
+              <button
+                v-for="productType in productTypes"
+                :key="productType"
+                class="type-button"
+                :class="{ selected: selectedType === productType }"
+                @click="selectType(productType)"
+              >
                 {{ productType }}
               </button>
             </div>
@@ -122,10 +128,25 @@ const productTypes = computed(
 
 const value = ref(0);
 const amount = computed(() => {
-  return (
-    props.variants?.reduce((sum, variant) => sum + variant.inventory, 0) || 0
-  );
+  if (!props.variants) return 0;
+
+  if (selectedType.value === '') {
+    return (
+      props.variants.reduce((sum, variant) => sum + variant.inventory, 0) || 0
+    );
+  } else {
+    return (
+      props.variants.find((v) => v.variantName === selectedType.value)
+        ?.inventory ?? 0
+    );
+  }
 });
+
+const selectedType = ref('');
+
+const selectType = (type: string) => {
+  selectedType.value = type;
+};
 </script>
 <style scoped>
 .primary-color {
@@ -180,5 +201,12 @@ const amount = computed(() => {
   position: relative;
   text-align: left;
   word-break: break-word;
+  transition: all 0.3s ease;
+}
+
+.type-button.selected {
+  background-color: var(--p-primary-color);
+  color: white;
+  border-color: var(--p-primary-color);
 }
 </style>
