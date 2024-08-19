@@ -2,7 +2,7 @@
   <section class="flex bg-white mt-4">
     <section class="p-2" style="width: 480px">
       <Image
-        src="https://down-tw.img.susercontent.com/file/tw-11134207-7r992-lycg4m1xr0ms69"
+        :src="productDetail?.product.imageUrl"
         alt="Image"
         width="480"
         preview
@@ -101,33 +101,33 @@ import Image from 'primevue/image';
 import { ref, computed } from 'vue';
 import InputNumber from 'primevue/inputnumber';
 import Button from 'primevue/button';
-import { ProductWithVariants } from '@/Model/type';
+import { ProductDetail } from '@/Model/type';
 
 interface Props {
-  productVariants: ProductWithVariants | null;
+  productDetail: ProductDetail | null;
 }
 
 const props = defineProps<Props>();
 
-const title = computed(() => props.productVariants?.product.name || '');
-const rating = computed(() => props.productVariants?.product.rating || '0');
+const title = computed(() => props.productDetail?.product.name || '');
+const rating = computed(() => props.productDetail?.product.rating || '0');
 const comment = ref(41);
 const sellNum = ref(1523);
 
 const prices = computed(
-  () => props.productVariants?.variants.map((v) => parseFloat(v.price)) || []
+  () => props.productDetail?.variants.map((v) => parseFloat(v.price)) || []
 );
 const minPrice = computed(() => Math.min(...prices.value));
 const maxPrice = computed(() => Math.max(...prices.value));
 
 const productTypes = computed(
-  () => props.productVariants?.variants.map((v) => v.variantName) || []
+  () => props.productDetail?.variants.map((v) => v.variantName) || []
 );
 
 const value = ref(0);
 const amount = computed(() => {
   return (
-    props.productVariants?.variants.reduce(
+    props.productDetail?.variants.reduce(
       (sum, variant) => sum + variant.inventory,
       0
     ) || 0

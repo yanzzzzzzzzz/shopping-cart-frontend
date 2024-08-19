@@ -18,23 +18,19 @@ export interface ProductData {
   };
 }
 
-export interface ProductVariant {
+export interface ProductVariantModel {
   variantName: string;
-  id: number;
-  productId: number;
   price: string;
   inventory: number;
 }
 
-export interface ProductWithVariants {
-  product: {
-    id: number;
-    name: string;
-    description: string;
-    price: string;
-    category: string;
-    imageUrl: string;
-    rating: string;
-  };
-  variants: ProductVariant[];
+export interface Spec {
+  specValue: string;
+  name: string;
+}
+
+export interface ProductDetail {
+  product: Product;
+  variants: ProductVariantModel[];
+  specs: Spec[];
 }

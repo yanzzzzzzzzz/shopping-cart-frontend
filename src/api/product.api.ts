@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ProductWithVariants } from '@/Model/type';
+import { ProductDetail } from '@/Model/type';
 
 export const Api = axios.create({
   baseURL: '/api/products',
@@ -15,11 +15,11 @@ export const getProductList = async () => {
   }
 };
 
-export const getProductVariants = async (
+export const getProductDetail = async (
   productId: number
-): Promise<ProductWithVariants> => {
+): Promise<ProductDetail> => {
   try {
-    const response = await Api.get(`/${productId}/variants`);
+    const response = await Api.get(`/${productId}`);
     return response.data;
   } catch (error) {
     console.error('獲取產品資訊時出錯:', error);
