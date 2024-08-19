@@ -1,52 +1,22 @@
 <template>
   <div class="bg-white mt-3 p-5">
-    <div v-if="productData">
+    <div v-if="props.specs">
       <div class="title">商品規格</div>
       <div class="pt-2 m-2">
-        <div
-          v-for="(value, key) in productData.specs"
-          :key="key"
-          class="subtitle"
-        >
-          <label class="spec-label">{{ translations[key] }}</label>
-          <span>{{ value }}</span>
+        <div v-for="spec in props.specs" :key="spec.name" class="subtitle">
+          <label class="spec-label">{{ spec.name }}</label>
+          <span>{{ spec.specValue }}</span>
         </div>
       </div>
-      <div class="title">商品描述</div>
-      <div class="pt-2 m-2">{{ productData.describe }}</div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { ProductData } from '@/Model/type';
+import { Spec } from '@/Model/type';
 
-const productData = ref<ProductData | null>(null);
-
-const fetchProductData = async (productId: number) => {
-  productData.value = {
-    id: 1,
-    name: 'Body Goals 乳清蛋白飲',
-    describe: 'Body Goals 乳清蛋白飲 全素多效豌豆蛋白飲 31g',
-    specs: {
-      category: '乳清蛋白',
-      quantity: '2647',
-      brand: 'BODY GOALS',
-      origin: '台灣',
-    },
-  };
-};
-
-onMounted(() => {
-  fetchProductData(1);
-});
-
-const translations = {
-  category: '分類',
-  quantity: '商品數量',
-  brand: '品牌',
-  origin: '產地',
-};
+const props = defineProps<{
+  specs?: Spec[];
+}>();
 </script>
 <style scoped>
 .spec-label {

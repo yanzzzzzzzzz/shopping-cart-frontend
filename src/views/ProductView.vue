@@ -5,7 +5,7 @@
     <template v-else>
       <ProductInfo :productDetail="productData" />
       <ProdcutShop />
-      <ProductSpec />
+      <ProductSpec :specs="productData?.specs" />
       <ProductRating />
     </template>
   </div>
