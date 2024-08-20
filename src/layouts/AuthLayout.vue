@@ -19,7 +19,7 @@ import Header from '@/components/Header.vue';
   flex-direction: column;
   min-height: 100vh;
   min-width: 1200px;
-  background-color: whitesmoke;
+  background-color: var(--p-primary-color) !important;
 }
 
 .container {

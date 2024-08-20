@@ -12,8 +12,7 @@
 
 <style scoped>
 .navbar {
-  background-color: var(--p-primary-color) !important;
-  color: var(--p-text-color) !important;
+  background-color: var(--p-primary-contrast-color) !important;
   padding: 0 0 1rem 0;
 }
 
@@ -35,7 +34,7 @@
 }
 
 .navbar-brand a {
-  color: var(--p-primary-contrast-color) !important;
+  color: var(--p-primary-color) !important;
   text-decoration: none;
   font-size: 1.5rem;
 }
