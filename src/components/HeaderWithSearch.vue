@@ -34,7 +34,7 @@ import AutoComplete from 'primevue/autocomplete';
 .navbar {
   background-color: var(--p-primary-color) !important;
   color: var(--p-text-color) !important;
-  padding: 1rem 0;
+  padding: 0 0 1rem 0;
 }
 
 .container {
