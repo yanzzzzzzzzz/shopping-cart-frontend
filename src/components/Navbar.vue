@@ -14,8 +14,8 @@
         <li>通知總覽</li>
         <li>幫助中心</li>
         <li>繁體中文</li>
-        <li>登入</li>
-        <li>註冊</li>
+        <li><router-link :to="{ name: 'login' }">登入</router-link></li>
+        <li><router-link to="register">註冊</router-link></li>
       </ul>
     </div>
   </div>
