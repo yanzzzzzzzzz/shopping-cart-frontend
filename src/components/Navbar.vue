@@ -57,4 +57,17 @@
 .right li {
   margin-left: 15px;
 }
+
+.navbar-top a,
+.navbar-top .right li a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-top a:hover,
+.navbar-top .right li a:hover {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.6);
+}
 </style>
