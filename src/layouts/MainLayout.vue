@@ -1,5 +1,6 @@
 <template>
   <div class="layout">
+    <Navbar />
     <HeaderWithSearch />
     <div class="container">
       <main class="content">
@@ -11,6 +12,7 @@
 
 <script setup lang="ts">
 import HeaderWithSearch from '@/components/HeaderWithSearch.vue';
+import Navbar from '@/components/Navbar.vue';
 </script>
 
 <style scoped>
