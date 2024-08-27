@@ -27,3 +27,12 @@ export interface ProductDetail {
   product: Product;
   variants: ProductVariantModel[];
 }
+
+export interface LoginModel {
+  username: string;
+  password: string;
+}
+export interface LoginResponseModel {
+  message: string;
+  token: string;
+}

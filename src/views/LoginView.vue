@@ -63,18 +63,21 @@ import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import Checkbox from 'primevue/checkbox';
 import Button from 'primevue/button';
-
+import { login } from '@/api/user.api';
+import { LoginModel } from '@/Model/type';
 const username = ref('');
 const password = ref('');
 const rememberMe = ref(false);
 
-const handleLogin = () => {
+const handleLogin = async () => {
   // 處理登入邏輯
-  console.log('Login attempt', {
+  const loginData: LoginModel = {
     username: username.value,
     password: password.value,
-    rememberMe: rememberMe.value,
-  });
+  };
+  console.log('Login attempt', loginData);
+  const res = await login(loginData);
+  console.log('login', res);
 };
 
 const handleFacebookLogin = () => {
