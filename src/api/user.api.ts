@@ -16,3 +16,14 @@ export const login = async (
     throw error;
   }
 };
+
+export const tokenIsExpired = async (token: string): Promise<boolean> => {
+  try {
+    const response = await Api.get('/checkToken', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.status !== 200;
+  } catch (error) {
+    return true;
+  }
+};

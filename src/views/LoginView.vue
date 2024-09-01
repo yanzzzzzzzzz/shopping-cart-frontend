@@ -57,27 +57,32 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import Checkbox from 'primevue/checkbox';
 import Button from 'primevue/button';
-import { login } from '@/api/user.api';
+import { login, tokenIsExpired } from '@/api/user.api';
 import { LoginModel } from '@/Model/type';
+import { useRouter } from 'vue-router';
 const username = ref('');
 const password = ref('');
 const rememberMe = ref(false);
 
+const router = useRouter();
 const handleLogin = async () => {
-  // 處理登入邏輯
-  const loginData: LoginModel = {
-    username: username.value,
-    password: password.value,
-  };
-  console.log('Login attempt', loginData);
-  const res = await login(loginData);
-  console.log('login', res);
+  try {
+    const loginData: LoginModel = {
+      username: username.value,
+      password: password.value,
+    };
+    const res = await login(loginData);
+    if (res.token) {
+      localStorage.setItem('token', res.token);
+    }
+    router.push('/');
+  } catch (error) {}
 };
 
 const handleFacebookLogin = () => {
@@ -87,6 +92,28 @@ const handleFacebookLogin = () => {
 const handleGoogleLogin = () => {
   console.log('Google login attempt');
 };
+
+const checkTokenValidity = async (token: string) => {
+  const isExpired = await tokenIsExpired(token);
+  if (isExpired) {
+    localStorage.removeItem('token');
+    alert('您的登入已過期，請重新登入');
+    return false;
+  }
+  return true;
+};
+
+onMounted(async () => {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    const isValid = await checkTokenValidity(token);
+    if (!isValid) {
+      router.push('/login');
+    }
+    router.push('/');
+  }
+});
 </script>
 
 <style scoped>
