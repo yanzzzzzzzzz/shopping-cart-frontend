@@ -36,3 +36,8 @@ export interface LoginResponseModel {
   message: string;
   token: string;
 }
+
+export interface ProfileModel {
+  username: string;
+  email: string;
+}

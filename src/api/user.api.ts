@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LoginResponseModel, LoginModel } from '@/Model/type';
+import { LoginResponseModel, LoginModel, ProfileModel } from '@/Model/type';
 
 export const Api = axios.create({
   baseURL: '/api/user',
@@ -25,5 +25,17 @@ export const tokenIsExpired = async (token: string): Promise<boolean> => {
     return response.status !== 200;
   } catch (error) {
     return true;
+  }
+};
+
+export const profile = async (token: string): Promise<ProfileModel> => {
+  try {
+    const response = await Api.get('/profile', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('profile error:', error);
+    throw error;
   }
 };

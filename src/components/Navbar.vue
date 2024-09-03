@@ -14,14 +14,54 @@
         <li>通知總覽</li>
         <li>幫助中心</li>
         <li>繁體中文</li>
-        <li><router-link :to="{ name: 'login' }">登入</router-link></li>
-        <li><router-link to="register">註冊</router-link></li>
+        <li v-if="!isLoggedIn">
+          <router-link :to="{ name: 'login' }">登入</router-link>
+        </li>
+        <li v-if="!isLoggedIn">
+          <router-link to="register">註冊</router-link>
+        </li>
+        <li v-if="isLoggedIn">
+          <router-link to="register">Hi,{{ userName }}</router-link>
+        </li>
+        <li v-if="isLoggedIn">
+          <a @click="logout">登出</a>
+        </li>
       </ul>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import { profile } from '@/api/user.api';
+import { useRouter } from 'vue-router';
+const isLoggedIn = ref(false);
+const userName = ref('');
+const router = useRouter();
+onMounted(async () => {
+  try {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const profileModel = await profile(token);
+      isLoggedIn.value = true;
+      userName.value = profileModel.username;
+    } else {
+      isLoggedIn.value = false;
+    }
+  } catch (error) {
+    isLoggedIn.value = false;
+    console.error('profile error:', error);
+  }
+});
+const logout = () => {
+  localStorage.removeItem('token');
+  isLoggedIn.value = false;
+  userName.value = '';
+  router.push({
+    name: 'login',
+  });
+};
+</script>
 
 <style scoped>
 .navbar-top {
