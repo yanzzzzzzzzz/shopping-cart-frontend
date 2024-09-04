@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { LoginResponseModel, LoginModel, ProfileModel } from '@/Model/type';
+import {
+  LoginResponseModel,
+  LoginModel,
+  ProfileModel,
+  RegisterResponseModel,
+  RegisterModel,
+} from '@/Model/type';
 
 export const Api = axios.create({
   baseURL: '/api/user',
@@ -36,6 +42,18 @@ export const profile = async (token: string): Promise<ProfileModel> => {
     return response.data;
   } catch (error) {
     console.error('profile error:', error);
+    throw error;
+  }
+};
+
+export const register = async (
+  RegisterModel: RegisterModel
+): Promise<RegisterResponseModel> => {
+  try {
+    const response = await Api.post('/register', RegisterModel);
+    return response.data;
+  } catch (error) {
+    console.error('register error:', error);
     throw error;
   }
 };
