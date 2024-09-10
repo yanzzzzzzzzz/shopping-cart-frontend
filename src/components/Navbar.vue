@@ -18,7 +18,7 @@
           <router-link :to="{ name: 'login' }">登入</router-link>
         </li>
         <li v-if="!isLoggedIn">
-          <router-link to="/auth/register">註冊</router-link>
+          <router-link :to="{ name: 'register' }">註冊</router-link>
         </li>
         <li v-if="isLoggedIn">
           <router-link to="register">Hi,{{ userName }}</router-link>
