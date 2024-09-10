@@ -74,20 +74,31 @@ import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import Button from 'primevue/button';
-
+import { register } from '@/api/user.api';
+import { RegisterModel } from '@/Model/type';
+import router from '@/router';
 const username = ref('');
 const password = ref('');
 const passwordConfirm = ref('');
 const email = ref('');
 
-const handleRegister = () => {
-  // 處理註冊邏輯
-  console.log('Register attempt', {
-    username: username.value,
-    password: password.value,
-    passwordConfirm: passwordConfirm.value,
-    email: email.value,
-  });
+const handleRegister = async () => {
+  try {
+    console.log('Register attempt', {
+      username: username.value,
+      password: password.value,
+      passwordConfirm: passwordConfirm.value,
+      email: email.value,
+    });
+    const registerModel: RegisterModel = {
+      username: username.value,
+      password: password.value,
+      email: email.value,
+    };
+    const res = await register(registerModel);
+    localStorage.setItem('token', res.token);
+    router.push('/');
+  } catch (error) {}
 };
 const handleGoogleRegister = () => {
   // 處理Google註冊邏輯

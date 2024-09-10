@@ -41,3 +41,12 @@ export interface ProfileModel {
   username: string;
   email: string;
 }
+
+export interface RegisterModel {
+  username: string;
+  password: string;
+  email: string;
+}
+export interface RegisterResponseModel {
+  token: string;
+}
