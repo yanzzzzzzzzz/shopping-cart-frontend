@@ -3,6 +3,17 @@
     <div class="login-card">
       <h2 class="login-title">登入</h2>
       <form @submit.prevent="handleLogin" class="login-form gap-3">
+        <div
+          v-if="errorMessage"
+          class="mb-4 p-2 flex align-items-center justify-content-center"
+          style="
+            background-color: #fff9fa;
+            border: 1px solid rgba(255, 66, 79, 0.2);
+          "
+        >
+          <i class="pi pi-times-circle pr-2" style="color: red"></i
+          >{{ errorMessage }}
+        </div>
         <div class="form-group">
           <FloatLabel>
             <InputText id="username" v-model="username" class="w-full" />
@@ -69,7 +80,7 @@ import { useRouter } from 'vue-router';
 const username = ref('');
 const password = ref('');
 const rememberMe = ref(false);
-
+const errorMessage = ref('');
 const router = useRouter();
 const handleLogin = async () => {
   try {
@@ -82,7 +93,9 @@ const handleLogin = async () => {
       localStorage.setItem('token', res.token);
     }
     router.push('/');
-  } catch (error) {}
+  } catch (error: any) {
+    errorMessage.value = error.response.data.error;
+  }
 };
 
 const handleFacebookLogin = () => {
