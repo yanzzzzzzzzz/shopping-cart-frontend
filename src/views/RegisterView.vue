@@ -5,15 +5,27 @@
       <form @submit.prevent="handleRegister" class="register-form gap-3">
         <div class="form-group">
           <FloatLabel>
-            <InputText id="username" v-model="username" class="w-full" />
+            <InputText
+              id="username"
+              v-model="username"
+              class="w-full"
+              :invalid="usernameInvalid"
+            />
             <label for="username">用戶名</label>
           </FloatLabel>
+          <small v-if="usernameInvalid">username is invalid.</small>
         </div>
         <div class="form-group">
           <FloatLabel>
-            <InputText id="email" v-model="email" class="w-full" />
+            <InputText
+              id="email"
+              v-model="email"
+              class="w-full"
+              :invalid="emailInvalid"
+            />
             <label for="email">電子郵件</label>
           </FloatLabel>
+          <small v-if="emailInvalid">電子郵件格式不正確。</small>
         </div>
         <div class="form-group">
           <FloatLabel>
@@ -23,9 +35,11 @@
               :feedback="false"
               toggleMask
               class="w-full"
+              :invalid="passwordInvalid"
             />
             <label for="password">密碼</label>
           </FloatLabel>
+          <small v-if="passwordInvalid">password is invalid.</small>
         </div>
         <div class="form-group">
           <FloatLabel>
@@ -35,9 +49,11 @@
               :feedback="false"
               toggleMask
               class="w-full"
+              :invalid="passwordConfirmInvalid"
             />
             <label for="passwordConfirm">確認密碼</label>
           </FloatLabel>
+          <small v-if="passwordConfirmInvalid">密碼與確認密碼不相符。</small>
         </div>
 
         <Button type="submit" label="註冊" class="w-full" />
@@ -81,6 +97,10 @@ const username = ref('');
 const password = ref('');
 const passwordConfirm = ref('');
 const email = ref('');
+const usernameInvalid = ref(false);
+const passwordInvalid = ref(false);
+const passwordConfirmInvalid = ref(false);
+const emailInvalid = ref(false);
 
 const handleRegister = async () => {
   try {
@@ -90,6 +110,10 @@ const handleRegister = async () => {
       passwordConfirm: passwordConfirm.value,
       email: email.value,
     });
+    if (validateInputs()) {
+      return;
+    }
+
     const registerModel: RegisterModel = {
       username: username.value,
       password: password.value,
@@ -98,7 +122,39 @@ const handleRegister = async () => {
     const res = await register(registerModel);
     localStorage.setItem('token', res.token);
     router.push('/');
-  } catch (error) {}
+  } catch (error: any) {
+    console.log('error', error.response.data.error);
+    switch (error.response.data.error) {
+      case 'Username, password, and email are required':
+        usernameInvalid.value = true;
+        emailInvalid.value = true;
+        passwordInvalid.value = true;
+        break;
+      case 'Password must be at least 6 characters long':
+        passwordInvalid.value = true;
+        break;
+      default:
+        break;
+    }
+  }
+};
+const validateInputs = () => {
+  const fields = [
+    { value: username.value, invalid: usernameInvalid },
+    { value: password.value, invalid: passwordInvalid },
+    { value: email.value, invalid: emailInvalid },
+    { value: passwordConfirm.value, invalid: passwordConfirmInvalid },
+  ];
+  fields.forEach((field) => {
+    field.invalid.value = field.value === '';
+  });
+  // 新增電子郵件格式檢查
+  emailInvalid.value = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
+
+  // 新增密碼與確認密碼相同的檢查
+  passwordConfirmInvalid.value = password.value !== passwordConfirm.value;
+
+  return fields.some((field) => field.invalid.value);
 };
 const handleGoogleRegister = () => {
   // 處理Google註冊邏輯
