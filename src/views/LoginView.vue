@@ -39,7 +39,12 @@
           </div>
           <a href="#" class="forgot-password">忘記密碼？</a>
         </div>
-        <Button type="submit" label="登入" class="w-full" />
+        <Button
+          type="submit"
+          label="登入"
+          class="w-full"
+          :disabled="!username || !password"
+        />
       </form>
       <div class="social-login">
         <p class="text-center my-3">或使用以下方式登入</p>
