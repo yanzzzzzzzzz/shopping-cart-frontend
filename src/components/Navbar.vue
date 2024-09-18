@@ -24,7 +24,7 @@
           <router-link to="register">Hi,{{ userName }}</router-link>
         </li>
         <li v-if="isLoggedIn">
-          <a @click="logout">登出</a>
+          <a @click="logout" class="cursor-pointer">登出</a>
         </li>
       </ul>
     </div>
