@@ -1,23 +1,17 @@
 <template>
-  <div v-if="isNull" class="text-center">
-    你的購物車還是空的
-    <Button
-      label="去瞎拼吧"
-      class="mt-3 large-button"
-      @click="goShopping"
-    ></Button>
+  <div v-if="isEmpty" class="text-center">
+    <ShoppingCartIsEmpty></ShoppingCartIsEmpty>
+  </div>
+  <div v-else class="container">
+    <ShoppingCart></ShoppingCart>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import Button from 'primevue/button';
-import router from '@/router';
-const isNull = ref(true);
-
-const goShopping = () => {
-  router.push({ name: 'home' });
-};
+import ShoppingCartIsEmpty from '@/components/ShoppingCartIsEmpty.vue';
+import ShoppingCart from '@/components/ShoppingCart.vue';
+const isEmpty = ref(true);
 </script>
 
 <style scoped>
@@ -29,8 +23,8 @@ const goShopping = () => {
   margin: 200px auto;
 }
 
-.large-button {
-  font-size: 1.5rem;
-  padding: 5px 40px;
+.container {
+  margin: 10px auto;
+  background-color: white;
 }
 </style>
