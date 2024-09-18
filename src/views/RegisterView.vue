@@ -13,7 +13,7 @@
             />
             <label for="username">用戶名</label>
           </FloatLabel>
-          <small v-if="usernameInvalid">username is invalid.</small>
+          <small v-if="usernameInvalid">{{ usernameErrorMessage }}</small>
         </div>
         <div class="form-group">
           <FloatLabel>
@@ -25,7 +25,7 @@
             />
             <label for="email">電子郵件</label>
           </FloatLabel>
-          <small v-if="emailInvalid">電子郵件格式不正確。</small>
+          <small v-if="emailInvalid">{{ emailErrorMessage }}</small>
         </div>
         <div class="form-group">
           <FloatLabel>
@@ -39,7 +39,7 @@
             />
             <label for="password">密碼</label>
           </FloatLabel>
-          <small v-if="passwordInvalid">password is invalid.</small>
+          <small v-if="passwordInvalid">{{ passwordErrorMessage }}</small>
         </div>
         <div class="form-group">
           <FloatLabel>
@@ -53,7 +53,9 @@
             />
             <label for="passwordConfirm">確認密碼</label>
           </FloatLabel>
-          <small v-if="passwordConfirmInvalid">密碼與確認密碼不相符。</small>
+          <small v-if="passwordConfirmInvalid">{{
+            passwordErrorMessage
+          }}</small>
         </div>
 
         <Button type="submit" label="註冊" class="w-full" />
@@ -101,6 +103,9 @@ const usernameInvalid = ref(false);
 const passwordInvalid = ref(false);
 const passwordConfirmInvalid = ref(false);
 const emailInvalid = ref(false);
+const passwordErrorMessage = ref('');
+const usernameErrorMessage = ref('');
+const emailErrorMessage = ref('');
 
 const handleRegister = async () => {
   try {
@@ -123,8 +128,9 @@ const handleRegister = async () => {
     localStorage.setItem('token', res.token);
     router.push('/');
   } catch (error: any) {
-    console.log('error', error.response.data.error);
-    switch (error.response.data.error) {
+    const errorMessage = error.response.data.error;
+    console.log('error', errorMessage);
+    switch (errorMessage) {
       case 'Username, password, and email are required':
         usernameInvalid.value = true;
         emailInvalid.value = true;
@@ -132,6 +138,13 @@ const handleRegister = async () => {
         break;
       case 'Password must be at least 6 characters long':
         passwordInvalid.value = true;
+        passwordErrorMessage.value = errorMessage;
+        break;
+      case 'Username or email already exists':
+        usernameInvalid.value = true;
+        emailInvalid.value = true;
+        emailErrorMessage.value = errorMessage;
+        usernameErrorMessage.value = errorMessage;
         break;
       default:
         break;
@@ -142,17 +155,25 @@ const validateInputs = () => {
   const fields = [
     { value: username.value, invalid: usernameInvalid },
     { value: password.value, invalid: passwordInvalid },
-    { value: email.value, invalid: emailInvalid },
     { value: passwordConfirm.value, invalid: passwordConfirmInvalid },
   ];
   fields.forEach((field) => {
     field.invalid.value = field.value === '';
   });
-  // 新增電子郵件格式檢查
   emailInvalid.value = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
-
-  // 新增密碼與確認密碼相同的檢查
-  passwordConfirmInvalid.value = password.value !== passwordConfirm.value;
+  if (emailInvalid.value) {
+    emailErrorMessage.value = 'Email format is incorrect.';
+  }
+  if (usernameInvalid.value) {
+    usernameErrorMessage.value = 'username is invalid.';
+  }
+  if (passwordConfirmInvalid.value) {
+    passwordErrorMessage.value = 'Password is required.';
+  }
+  if (password.value !== passwordConfirm.value) {
+    passwordConfirmInvalid.value = true;
+    passwordErrorMessage.value = 'Passwords do not match.';
+  }
 
   return fields.some((field) => field.invalid.value);
 };
@@ -214,5 +235,8 @@ const handleFacebookRegister = () => {
 
 .register-link a:hover {
   text-decoration: underline;
+}
+small {
+  color: red;
 }
 </style>
