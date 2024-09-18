@@ -5,6 +5,7 @@ import ProductView from '@/views/ProductView.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
+import ShoppingCartView from '@/views/ShoppingCartView.vue';
 
 const routes = [
   {
@@ -14,6 +15,7 @@ const routes = [
       {
         path: '',
         component: ShopView,
+        name: 'home',
       },
       {
         path: 'product/:id',
@@ -35,6 +37,16 @@ const routes = [
         path: 'register',
         component: RegisterView,
         name: 'register',
+      },
+    ],
+  },
+  {
+    path: '/cart',
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        component: ShoppingCartView,
       },
     ],
   },
