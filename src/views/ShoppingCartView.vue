@@ -2,7 +2,7 @@
   <div v-if="isEmpty" class="text-center">
     <ShoppingCartIsEmpty></ShoppingCartIsEmpty>
   </div>
-  <div v-else class="container">
+  <div v-else">
     <ShoppingCart></ShoppingCart>
   </div>
 </template>
@@ -11,7 +11,7 @@
 import { ref } from 'vue';
 import ShoppingCartIsEmpty from '@/components/ShoppingCartIsEmpty.vue';
 import ShoppingCart from '@/components/ShoppingCart.vue';
-const isEmpty = ref(true);
+const isEmpty = ref(false);
 </script>
 
 <style scoped>
