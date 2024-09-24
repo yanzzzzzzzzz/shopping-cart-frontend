@@ -2,8 +2,8 @@
   <div v-if="isEmpty" class="text-center">
     <ShoppingCartIsEmpty></ShoppingCartIsEmpty>
   </div>
-  <div v-else">
     <ShoppingCart></ShoppingCart>
+  <div v-else>
   </div>
 </template>
 
