@@ -5,7 +5,7 @@
         <router-link to="/">123 Shop</router-link>
       </div>
       <div class="navbar-section navbar-search">
-        <AutoComplete placeholder="search" inputStyle="width: 500px">
+        <AutoComplete placeholder="search" :inputStyle="inputStyle">
         </AutoComplete>
 
         <div class="popular-searches">
@@ -28,6 +28,9 @@
 
 <script setup lang="ts">
 import AutoComplete from 'primevue/autocomplete';
+const inputStyle = {
+  width: '500px',
+};
 </script>
 
 <style scoped>
