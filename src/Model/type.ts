@@ -40,6 +40,7 @@ export interface LoginResponseModel {
 export interface ProfileModel {
   username: string;
   email: string;
+  id: number;
 }
 
 export interface RegisterModel {
@@ -49,4 +50,16 @@ export interface RegisterModel {
 }
 export interface RegisterResponseModel {
   token: string;
+}
+
+export interface CartItem {
+  id: number;
+  amount: number;
+  imageUrl: string;
+  name: string;
+  price: number;
+  productId: number;
+  productVariantId: number;
+  userId: number;
+  variantName: string;
 }
