@@ -3,7 +3,11 @@
     <Checkbox class="mx-4" />
     <Image :src="cartItem.imageUrl" width="90" />
     <div class="w-3">
-      <label class="product-name px-2 py-10">{{ cartItem.name }}</label>
+      <label
+        class="product-name px-2 py-10 cursor-pointer"
+        v-tooltip="cartItem.name"
+        >{{ cartItem.name }}</label
+      >
     </div>
     <div class="pl-3 w-2">
       <label class="" style="color: gray"

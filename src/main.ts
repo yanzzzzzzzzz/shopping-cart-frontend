@@ -8,6 +8,7 @@ import 'primeflex/primeflex.css';
 import router from './router';
 import './style.css';
 import { definePreset } from '@primevue/themes';
+import Tooltip from 'primevue/tooltip';
 
 const app = createApp(App);
 const MyPreset = definePreset(Aura, {
@@ -39,5 +40,5 @@ app.use(PrimeVue, {
   },
 });
 app.use(router);
-
+app.directive('tooltip', Tooltip);
 app.mount('#app');
