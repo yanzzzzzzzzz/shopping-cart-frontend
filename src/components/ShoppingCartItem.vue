@@ -3,9 +3,9 @@
     <Checkbox class="mx-4" />
     <Image :src="cartItem.imageUrl" width="90" />
     <div class="w-3">
-      <label class="product-name">{{ cartItem.name }}</label>
+      <label class="product-name px-2 py-10">{{ cartItem.name }}</label>
     </div>
-    <div class="w-3">
+    <div class="pl-3 w-2">
       <label class="" style="color: gray"
         >規格: {{ cartItem.variantName }}</label
       >

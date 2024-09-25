@@ -2,7 +2,7 @@
   <div class="bg-white pl-2 pr-4 py-3" style="width: 1200px">
     <div class="flex">
       <Checkbox class="mx-4" />
-      <label class="w-7">商品</label>
+      <label class="w-6">商品</label>
       <label class="w-2 text-center">單價</label>
       <label class="w-2 text-center">數量</label>
       <label class="w-2 text-center">總計</label>
@@ -13,7 +13,7 @@
   <div class="bg-white mt-3">
     <div class="px-5 py-3 divider">
       <Checkbox class="mr-2" />
-      <label>{{ storeName }}</label>
+      <label class="ml-2">{{ storeName }}</label>
     </div>
     <div v-for="cartItem in cartItems">
       <ShoppingCartItem :cartItem="cartItem" />
