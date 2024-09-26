@@ -37,18 +37,32 @@
       style="color: var(--p-primary-color) !important"
       >${{ cartItem.price * cartItem.amount }}</label
     >
-    <label class="w-1 text-center">刪除</label>
+    <label
+      class="w-1 text-center cursor-pointer"
+      @click="deleteItem(cartItem.id)"
+      >刪除</label
+    >
   </div>
 </template>
 <script setup lang="ts">
 import Image from 'primevue/image';
 import InputNumber from 'primevue/inputnumber';
 import Checkbox from 'primevue/checkbox';
-
+import { deleteCartItem } from '@/api/shopingCart.api';
 import { CartItem } from '@/Model/type';
 defineProps<{
   cartItem: CartItem;
 }>();
+const deleteItem = async (id: number) => {
+  try {
+    const token = localStorage.getItem('token');
+    if (token == null) {
+      return;
+    }
+    const response = await deleteCartItem(id);
+    console.log('response', response);
+  } catch (error) {}
+};
 </script>
 <style scoped>
 .product-name {
