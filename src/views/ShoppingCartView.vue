@@ -13,20 +13,22 @@ import ShoppingCartIsEmpty from '@/components/ShoppingCartIsEmpty.vue';
 import ShoppingCart from '@/components/ShoppingCart.vue';
 
 import { getCartItems } from '@/api/shopingCart.api';
-import { profile } from '@/api/user.api';
 import { CartItem } from '@/Model/type';
-
+import { useUserStore } from '@/stores/userStore';
+const userStore = useUserStore();
 const cartItems = ref<CartItem[]>([]);
 const isEmpty = ref(false);
+const fetchData = async (userId: number) => {
+  cartItems.value = await getCartItems(userId);
+};
 onMounted(async () => {
   try {
     const token = localStorage.getItem('token');
     if (token == null) {
       return;
     }
-    const userProfile = await profile(token);
-    cartItems.value = await getCartItems(userProfile.id);
-  } catch (error) {
+    await fetchData(userStore.id);
+  } catch (error: any) {
     console.error('profile error:', error);
   }
 });
