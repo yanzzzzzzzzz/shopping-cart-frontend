@@ -53,6 +53,7 @@ import { CartItem } from '@/Model/type';
 defineProps<{
   cartItem: CartItem;
 }>();
+const emit = defineEmits();
 const deleteItem = async (id: number) => {
   try {
     const token = localStorage.getItem('token');
@@ -61,6 +62,7 @@ const deleteItem = async (id: number) => {
     }
     const response = await deleteCartItem(id);
     console.log('response', response);
+    emit('refresh');
   } catch (error) {}
 };
 </script>

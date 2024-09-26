@@ -3,7 +3,7 @@
     <ShoppingCartIsEmpty></ShoppingCartIsEmpty>
   </div>
   <div v-else>
-    <ShoppingCart :cartItems="cartItems"></ShoppingCart>
+    <ShoppingCart :cartItems="cartItems" @refresh="fetchData"></ShoppingCart>
   </div>
 </template>
 
@@ -18,16 +18,14 @@ import { useUserStore } from '@/stores/userStore';
 const userStore = useUserStore();
 const cartItems = ref<CartItem[]>([]);
 const isEmpty = ref(false);
-const fetchData = async (userId: number) => {
+const fetchData = async () => {
+  const userId = userStore.id;
   cartItems.value = await getCartItems(userId);
+  isEmpty.value = cartItems.value.length === 0;
 };
 onMounted(async () => {
   try {
-    const token = localStorage.getItem('token');
-    if (token == null) {
-      return;
-    }
-    await fetchData(userStore.id);
+    await fetchData();
   } catch (error: any) {
     console.error('profile error:', error);
   }

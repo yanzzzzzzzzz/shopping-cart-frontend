@@ -16,7 +16,7 @@
       <label class="ml-2">{{ storeName }}</label>
     </div>
     <div v-for="cartItem in cartItems">
-      <ShoppingCartItem :cartItem="cartItem" />
+      <ShoppingCartItem :cartItem="cartItem" @refresh="handleDelete" />
     </div>
     <div class="px-2 py-4"></div>
   </div>
@@ -37,8 +37,12 @@ import ShoppingCartItem from './ShoppingCartItem.vue';
 defineProps<{
   cartItems: CartItem[];
 }>();
+const emit = defineEmits();
 const storeName = ref('立達國際官方旗艦店');
 const selected = ref(1);
+const handleDelete = () => {
+  emit('refresh');
+};
 </script>
 <style scoped>
 .divider {
