@@ -84,10 +84,11 @@ router.beforeEach(async (to, from, next) => {
     } else {
       const decodedPayload = decodeToken(token);
       console.log('decodedPayload', decodedPayload);
-      console.log('decodedPayload?.username', decodedPayload?.username);
+      console.log('decodedPayload?.id', decodedPayload?.id);
 
       userStore.setUserName(decodedPayload?.username || '');
       userStore.setLoggedIn(true);
+      userStore.setId(decodedPayload?.id || 0);
     }
   } else {
     if (!isNonRedirect) {
