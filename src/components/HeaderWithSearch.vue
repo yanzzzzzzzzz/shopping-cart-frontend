@@ -17,7 +17,7 @@
       </div>
       <div class="navbar-section navbar-cart">
         <router-link
-          to="/cart"
+          :to="link"
           class="pi pi-shopping-cart"
           style="font-size: 2.5rem"
         ></router-link>
@@ -31,6 +31,7 @@ import AutoComplete from 'primevue/autocomplete';
 const inputStyle = {
   width: '500px',
 };
+const link = localStorage.getItem('token') == null ? '/login' : '/cart';
 </script>
 
 <style scoped>
