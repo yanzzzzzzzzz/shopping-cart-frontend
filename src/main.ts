@@ -1,6 +1,7 @@
 import App from './App.vue';
 
 import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
 import 'primeicons/primeicons.css';
@@ -11,6 +12,8 @@ import { definePreset } from '@primevue/themes';
 import Tooltip from 'primevue/tooltip';
 
 const app = createApp(App);
+const pinia = createPinia();
+
 const MyPreset = definePreset(Aura, {
   semantic: {
     primary: {
@@ -40,5 +43,6 @@ app.use(PrimeVue, {
   },
 });
 app.use(router);
+app.use(pinia);
 app.directive('tooltip', Tooltip);
 app.mount('#app');

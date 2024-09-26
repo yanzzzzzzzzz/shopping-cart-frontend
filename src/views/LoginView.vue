@@ -115,7 +115,6 @@ const checkTokenValidity = async (token: string) => {
   const isExpired = await tokenIsExpired(token);
   if (isExpired) {
     localStorage.removeItem('token');
-    alert('您的登入已過期，請重新登入');
     return false;
   }
   return true;
@@ -125,11 +124,7 @@ onMounted(async () => {
   const token = localStorage.getItem('token');
 
   if (token) {
-    const isValid = await checkTokenValidity(token);
-    if (!isValid) {
-      router.push('/login');
-    }
-    router.push('/');
+    await checkTokenValidity(token);
   }
 });
 </script>

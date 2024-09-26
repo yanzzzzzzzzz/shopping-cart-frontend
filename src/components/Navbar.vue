@@ -32,31 +32,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { profile } from '@/api/user.api';
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
-const isLoggedIn = ref(false);
-const userName = ref('');
+import { useUserStore } from '@/stores/userStore';
+const userStore = useUserStore();
+const isLoggedIn = computed(() => userStore.isLoggedIn);
+const userName = computed(() => userStore.userName);
 const router = useRouter();
-onMounted(async () => {
-  try {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const profileModel = await profile(token);
-      isLoggedIn.value = true;
-      userName.value = profileModel.username;
-    } else {
-      isLoggedIn.value = false;
-    }
-  } catch (error) {
-    isLoggedIn.value = false;
-    console.error('profile error:', error);
-  }
-});
+
 const logout = () => {
   localStorage.removeItem('token');
-  isLoggedIn.value = false;
-  userName.value = '';
+  userStore.setLoggedIn(false);
+  userStore.setUserName('');
   router.push({
     name: 'login',
   });

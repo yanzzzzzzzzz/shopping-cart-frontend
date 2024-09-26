@@ -63,3 +63,10 @@ export interface CartItem {
   userId: number;
   variantName: string;
 }
+
+export interface DecodedPayload {
+  username: string;
+  id: number;
+  iat: number;
+  exp: number;
+}

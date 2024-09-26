@@ -6,7 +6,9 @@ import AuthLayout from '@/layouts/AuthLayout.vue';
 import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import ShoppingCartView from '@/views/ShoppingCartView.vue';
-
+import { checkTokenValidity } from '@/utils/tokenUtils';
+import { useUserStore } from '@/stores/userStore';
+import { decodeToken } from '@/utils/tokenUtils';
 const routes = [
   {
     path: '/',
@@ -25,7 +27,7 @@ const routes = [
     ],
   },
   {
-    path: '/auth',
+    path: '/',
     component: AuthLayout,
     children: [
       {
@@ -57,4 +59,43 @@ const router = createRouter({
   routes: routes,
 });
 
+const nonRedirectRoutes = ['/', '/login', '/register'];
+const isNonRedirectRoute = (path: string) => {
+  return nonRedirectRoutes.includes(path) || /^\/product\/\d+$/.test(path);
+};
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore();
+
+  console.log('check router');
+
+  const token = localStorage.getItem('token');
+  const isNonRedirect = isNonRedirectRoute(to.path);
+  if (token) {
+    const isValid = await checkTokenValidity(token);
+    if (!isValid) {
+      console.log('token is invalid, clearing token');
+      localStorage.removeItem('token');
+      userStore.setLoggedIn(false);
+
+      if (isNonRedirect) {
+        return next();
+      }
+      return next('/login');
+    } else {
+      const decodedPayload = decodeToken(token);
+      console.log('decodedPayload', decodedPayload);
+      console.log('decodedPayload?.username', decodedPayload?.username);
+
+      userStore.setUserName(decodedPayload?.username || '');
+      userStore.setLoggedIn(true);
+    }
+  } else {
+    if (!isNonRedirect) {
+      console.log('token is null, redirecting to login');
+      return next('/login');
+    }
+  }
+
+  next();
+});
 export default router;
