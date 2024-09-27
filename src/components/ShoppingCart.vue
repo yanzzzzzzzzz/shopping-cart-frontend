@@ -37,7 +37,7 @@ import ShoppingCartItem from './ShoppingCartItem.vue';
 defineProps<{
   cartItems: CartItem[];
 }>();
-const emit = defineEmits();
+const emit = defineEmits(['refresh']);
 const storeName = ref('立達國際官方旗艦店');
 const selected = ref(1);
 const handleDelete = () => {

@@ -53,7 +53,7 @@ import { CartItem } from '@/Model/type';
 defineProps<{
   cartItem: CartItem;
 }>();
-const emit = defineEmits();
+const emit = defineEmits(['refresh']);
 const deleteItem = async (id: number) => {
   try {
     const token = localStorage.getItem('token');
