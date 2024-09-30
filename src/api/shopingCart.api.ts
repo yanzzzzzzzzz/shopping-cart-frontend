@@ -1,5 +1,5 @@
 import Api from './baseApi';
-import { CartItem } from '@/Model/type';
+import { CartItem, AddCartItemModel } from '@/Model/type';
 
 export const getCartItems = async (userId: number) => {
   const response = await Api.get(`/cart/${userId}`);
@@ -8,5 +8,10 @@ export const getCartItems = async (userId: number) => {
 
 export const deleteCartItem = async (cartId: number) => {
   const response = await Api.delete(`/cart/${cartId}`);
+  return response;
+};
+
+export const addCartItem = async (cartItem: AddCartItemModel) => {
+  const response = await Api.post('/cart', cartItem);
   return response;
 };

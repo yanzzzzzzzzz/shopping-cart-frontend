@@ -28,10 +28,17 @@
         </div>
       </div>
       <div class="price-bg text-3xl p-3 mt-2 primary-color">
-        <div v-if="minPrice === maxPrice">
-          {{ minPrice }}
+        <div>
+          <span v-if="selectedVariantId == null">
+            ${{ minPrice
+            }}<span v-if="minPrice !== maxPrice"> - ${{ maxPrice }}</span>
+          </span>
+          <span v-else>
+            ${{
+              props.variants?.find((v) => v.id === selectedVariantId)?.price
+            }}
+          </span>
         </div>
-        <div v-else>${{ minPrice }} - ${{ maxPrice }}</div>
       </div>
       <div class="mt-2">
         <div class="flex flex-column">
@@ -51,13 +58,13 @@
             <h3 class="sub-title">類型</h3>
             <div class="flex align-items-center type-select">
               <button
-                v-for="productType in productTypes"
-                :key="productType"
+                v-for="productVariant in props.variants"
+                :key="productVariant.id"
                 class="type-button"
-                :class="{ selected: selectedType === productType }"
-                @click="selectType(productType)"
+                :class="{ selected: selectedVariantId === productVariant.id }"
+                @click="selectType(productVariant)"
               >
-                {{ productType }}
+                {{ productVariant.variantName }}
               </button>
             </div>
           </section>
@@ -65,10 +72,10 @@
             <h3 class="sub-title">數量</h3>
             <div class="flex align-items-center">
               <InputNumber
-                v-model="value"
+                v-model="amount"
                 showButtons
                 buttonLayout="horizontal"
-                :min="0"
+                :min="1"
                 :max="99"
                 :inputStyle="{ width: '50px', textAlign: 'center' }"
               >
@@ -79,7 +86,7 @@
                   <span class="pi pi-minus" />
                 </template>
               </InputNumber>
-              <div class="ml-2 sub-title">還剩 {{ amount }} 件</div>
+              <div class="ml-2 sub-title">還剩 {{ inventory }} 件</div>
             </div>
           </section>
         </div>
@@ -90,6 +97,7 @@
             label="加入購物車"
             icon="pi pi-shopping-cart"
             class="border-noround w-10rem"
+            v-on:click="addToCart"
           />
           <Button label="直接購買" class="ml-4 border-noround w-10rem" />
         </div>
@@ -103,7 +111,8 @@ import { ref, computed } from 'vue';
 import InputNumber from 'primevue/inputnumber';
 import Button from 'primevue/button';
 import { Product, ProductVariantModel } from '@/Model/type';
-
+import { addCartItem } from '@/api/shopingCart.api';
+import { AddCartItemModel } from '@/Model/type';
 interface Props {
   product: Product | undefined;
   variants: ProductVariantModel[] | undefined;
@@ -122,30 +131,40 @@ const prices = computed(
 const minPrice = computed(() => Math.min(...prices.value));
 const maxPrice = computed(() => Math.max(...prices.value));
 
-const productTypes = computed(
-  () => props.variants?.map((v) => v.variantName) || []
-);
-
-const value = ref(0);
-const amount = computed(() => {
+const amount = ref(1);
+const inventory = computed(() => {
   if (!props.variants) return 0;
 
-  if (selectedType.value === '') {
+  if (selectedVariantId.value === 0) {
     return (
       props.variants.reduce((sum, variant) => sum + variant.inventory, 0) || 0
     );
   } else {
     return (
-      props.variants.find((v) => v.variantName === selectedType.value)
-        ?.inventory ?? 0
+      props.variants.find((v) => v.id === selectedVariantId.value)?.inventory ??
+      0
     );
   }
 });
 
-const selectedType = ref('');
+const selectedVariantId = ref<number | null>(null);
 
-const selectType = (type: string) => {
-  selectedType.value = type;
+const selectType = (type: ProductVariantModel) => {
+  selectedVariantId.value = type.id;
+};
+
+const addToCart = async () => {
+  if (props.product?.id == null) return;
+  if (selectedVariantId.value == null) return;
+
+  const cartItem: AddCartItemModel = {
+    productId: props.product?.id,
+    productVariantId: selectedVariantId.value,
+    amount: amount.value,
+  };
+  console.log(cartItem);
+
+  await addCartItem(cartItem);
 };
 </script>
 <style scoped>

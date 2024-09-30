@@ -13,6 +13,7 @@ export interface ProductData {
 }
 
 export interface ProductVariantModel {
+  id: number;
   variantName: string;
   price: string;
   inventory: number;
@@ -69,4 +70,10 @@ export interface DecodedPayload {
   id: number;
   iat: number;
   exp: number;
+}
+
+export interface AddCartItemModel {
+  productId: number;
+  productVariantId: number;
+  amount: number;
 }
