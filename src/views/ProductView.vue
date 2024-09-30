@@ -20,7 +20,7 @@ import { useRoute } from 'vue-router';
 import { getProductDetail } from '@/api/product.api';
 import ProductBreadcrumb from '@/components/ProductBreadcrumb.vue';
 import ProductInfo from '@/components/ProductInfo.vue';
-import ProdcutShop from '@/components/ProdcutShop.vue';
+import ProductShop from '@/components/ProductShop.vue';
 import ProductSpec from '@/components/ProductSpec.vue';
 import ProductRating from '@/components/ProductRating.vue';
 import ProductDescription from '@/components/ProductDescription.vue';
