@@ -42,53 +42,56 @@
       </div>
       <div class="mt-2">
         <div class="flex flex-column">
-          <section class="flex product-info">
+          <section class="flex product-info p-2">
             <h3 class="sub-title">分期0利率</h3>
             <div class="flex">
               <div>3期x $12 (0利率)</div>
             </div>
           </section>
-          <section class="flex product-info">
+          <section class="flex product-info p-2">
             <h3 class="sub-title">運送</h3>
             <div class="flex">
               <div>運送到 台北市</div>
             </div>
           </section>
-          <section class="flex product-info align-items-baseline">
-            <h3 class="sub-title">類型</h3>
-            <div class="flex align-items-center type-select">
-              <button
-                v-for="productVariant in props.variants"
-                :key="productVariant.id"
-                class="type-button"
-                :class="{ selected: selectedVariantId === productVariant.id }"
-                @click="selectType(productVariant)"
-              >
-                {{ productVariant.variantName }}
-              </button>
-            </div>
-          </section>
-          <section class="flex product-info">
-            <h3 class="sub-title">數量</h3>
-            <div class="flex align-items-center">
-              <InputNumber
-                v-model="amount"
-                showButtons
-                buttonLayout="horizontal"
-                :min="1"
-                :max="99"
-                :inputStyle="{ width: '50px', textAlign: 'center' }"
-              >
-                <template #incrementbuttonicon>
-                  <span class="pi pi-plus" />
-                </template>
-                <template #decrementbuttonicon>
-                  <span class="pi pi-minus" />
-                </template>
-              </InputNumber>
-              <div class="ml-2 sub-title">還剩 {{ inventory }} 件</div>
-            </div>
-          </section>
+          <div class="p-2" :style="{ backgroundColor: productBg }">
+            <section class="flex product-info align-items-baseline">
+              <h3 class="sub-title">類型</h3>
+              <div class="flex align-items-center type-select">
+                <button
+                  v-for="productVariant in props.variants"
+                  :key="productVariant.id"
+                  class="type-button"
+                  :class="{ selected: selectedVariantId === productVariant.id }"
+                  @click="selectType(productVariant)"
+                >
+                  {{ productVariant.variantName }}
+                </button>
+              </div>
+            </section>
+            <section class="flex product-info">
+              <h3 class="sub-title">數量</h3>
+              <div class="flex align-items-center">
+                <InputNumber
+                  v-model="amount"
+                  showButtons
+                  buttonLayout="horizontal"
+                  :min="1"
+                  :max="99"
+                  :inputStyle="{ width: '50px', textAlign: 'center' }"
+                >
+                  <template #incrementbuttonicon>
+                    <span class="pi pi-plus" />
+                  </template>
+                  <template #decrementbuttonicon>
+                    <span class="pi pi-minus" />
+                  </template>
+                </InputNumber>
+                <div class="ml-2 sub-title">還剩 {{ inventory }} 件</div>
+              </div>
+            </section>
+            <p style="color: red">{{ errorMessage }}</p>
+          </div>
         </div>
       </div>
       <div class="mt-2">
@@ -113,6 +116,9 @@ import Button from 'primevue/button';
 import { Product, ProductVariantModel } from '@/Model/type';
 import { addCartItem } from '@/api/shopingCart.api';
 import { AddCartItemModel } from '@/Model/type';
+import router from '@/router';
+import { useUserStore } from '@/stores/userStore';
+const userStore = useUserStore();
 interface Props {
   product: Product | undefined;
   variants: ProductVariantModel[] | undefined;
@@ -148,15 +154,32 @@ const inventory = computed(() => {
 });
 
 const selectedVariantId = ref<number | null>(null);
-
+const productBg = ref('');
+const errorMessage = ref('');
 const selectType = (type: ProductVariantModel) => {
+  if (selectedVariantId.value === type.id) {
+    selectedVariantId.value = null;
+    return;
+  }
   selectedVariantId.value = type.id;
+  productBg.value = '';
+  errorMessage.value = '';
 };
 
 const addToCart = async () => {
   if (props.product?.id == null) return;
-  if (selectedVariantId.value == null) return;
-
+  if (selectedVariantId.value == null) {
+    console.log('selectedVariantId.value == null');
+    productBg.value = '#fff5f5';
+    errorMessage.value = '請先選擇商品規格';
+    return;
+  }
+  if (!userStore.isLoggedIn) {
+    router.push({
+      name: 'login',
+    });
+    return;
+  }
   const cartItem: AddCartItemModel = {
     productId: props.product?.id,
     productVariantId: selectedVariantId.value,
