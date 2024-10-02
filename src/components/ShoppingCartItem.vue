@@ -3,10 +3,11 @@
     <Checkbox class="mx-4" />
     <Image :src="cartItem.imageUrl" width="90" />
     <div class="w-3">
-      <label
-        class="product-name px-2 py-10 cursor-pointer"
+      <router-link
+        :to="{ name: 'product', params: { id: cartItem.productId } }"
+        class="product-name px-2 py-10 no-underline text-primary"
         v-tooltip="cartItem.name"
-        >{{ cartItem.name }}</label
+        >{{ cartItem.name }}</router-link
       >
     </div>
     <div class="pl-3 w-2">
