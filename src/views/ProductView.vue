@@ -53,12 +53,8 @@ onMounted(async () => {
   }
 });
 const showAddToCart = () => {
-  console.log('showAddToCart');
-
   addToCart.value = true;
   setTimeout(() => {
-    console.log('set to false');
-
     addToCart.value = false;
   }, 800);
 };
