@@ -125,7 +125,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
+const emit = defineEmits(['showAddToCart']);
 const title = computed(() => props.product?.name || '');
 const rating = computed(() => props.product?.rating || '0');
 const comment = ref(41);
@@ -188,6 +188,7 @@ const addToCart = async () => {
   console.log(cartItem);
 
   await addCartItem(cartItem);
+  emit('showAddToCart');
 };
 </script>
 <style scoped>
