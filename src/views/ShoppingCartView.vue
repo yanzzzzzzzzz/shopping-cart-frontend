@@ -12,7 +12,7 @@ import { onMounted, ref } from 'vue';
 import ShoppingCartIsEmpty from '@/components/ShoppingCartIsEmpty.vue';
 import ShoppingCart from '@/components/ShoppingCart.vue';
 
-import { getCartItems } from '@/api/shopingCart.api';
+import { getCartItems } from '@/api/shoppingCart.api';
 import { CartItem } from '@/Model/type';
 import { useUserStore } from '@/stores/userStore';
 const userStore = useUserStore();

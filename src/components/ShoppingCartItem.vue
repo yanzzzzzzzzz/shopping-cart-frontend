@@ -48,7 +48,7 @@
 import Image from 'primevue/image';
 import InputNumber from 'primevue/inputnumber';
 import Checkbox from 'primevue/checkbox';
-import { deleteCartItem } from '@/api/shopingCart.api';
+import { deleteCartItem } from '@/api/shoppingCart.api';
 import { CartItem } from '@/Model/type';
 defineProps<{
   cartItem: CartItem;

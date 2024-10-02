@@ -114,7 +114,7 @@ import { ref, computed } from 'vue';
 import InputNumber from 'primevue/inputnumber';
 import Button from 'primevue/button';
 import { Product, ProductVariantModel } from '@/Model/type';
-import { addCartItem } from '@/api/shopingCart.api';
+import { addCartItem } from '@/api/shoppingCart.api';
 import { AddCartItemModel } from '@/Model/type';
 import router from '@/router';
 import { useUserStore } from '@/stores/userStore';
