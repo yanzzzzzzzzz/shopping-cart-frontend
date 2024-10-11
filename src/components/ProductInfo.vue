@@ -77,7 +77,7 @@
                   showButtons
                   buttonLayout="horizontal"
                   :min="1"
-                  :max="99"
+                  :max="inventory"
                   :inputStyle="{ width: '50px', textAlign: 'center' }"
                 >
                   <template #incrementbuttonicon>
@@ -197,7 +197,6 @@ const addItem = async () => {
   await addCartItem(cartItem);
 };
 const buyNow = async () => {
-
   await addItem();
   router.push({ name: 'cart' });
 };
