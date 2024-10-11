@@ -49,6 +49,7 @@ const routes = [
       {
         path: '',
         component: ShoppingCartView,
+        name: 'cart',
       },
     ],
   },

@@ -102,7 +102,11 @@
             class="border-noround w-10rem"
             @click="addToCart"
           />
-          <Button label="直接購買" class="ml-4 border-noround w-10rem" />
+          <Button
+            label="直接購買"
+            class="ml-4 border-noround w-10rem"
+            @click="buyNow"
+          />
         </div>
       </div>
     </section>
@@ -165,8 +169,11 @@ const selectType = (type: ProductVariantModel) => {
   productBg.value = '';
   errorMessage.value = '';
 };
-
 const addToCart = async () => {
+  await addItem();
+  emit('showAddToCart');
+};
+const addItem = async () => {
   if (props.product?.id == null) return;
   if (selectedVariantId.value == null) {
     console.log('selectedVariantId.value == null');
@@ -188,7 +195,11 @@ const addToCart = async () => {
   console.log(cartItem);
 
   await addCartItem(cartItem);
-  emit('showAddToCart');
+};
+const buyNow = async () => {
+
+  await addItem();
+  router.push({ name: 'cart' });
 };
 </script>
 <style scoped>
