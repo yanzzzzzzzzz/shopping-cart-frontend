@@ -100,7 +100,7 @@
             label="加入購物車"
             icon="pi pi-shopping-cart"
             class="border-noround w-10rem"
-            v-on:click="addToCart"
+            @click="addToCart"
           />
           <Button label="直接購買" class="ml-4 border-noround w-10rem" />
         </div>
