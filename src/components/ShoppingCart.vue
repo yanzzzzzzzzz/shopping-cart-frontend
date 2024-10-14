@@ -1,7 +1,12 @@
 <template>
   <div class="bg-white pl-2 pr-4 py-3" style="width: 1200px">
     <div class="flex">
-      <Checkbox class="mx-4" />
+      <Checkbox
+        class="mx-4"
+        v-model="checkAllTop"
+        @change="handleTopCheckChange"
+        binary
+      />
       <label class="w-6">商品</label>
       <label class="w-2 text-center">單價</label>
       <label class="w-2 text-center">數量</label>
@@ -15,31 +20,79 @@
       <Checkbox class="mr-2" />
       <label class="ml-2">{{ storeName }}</label>
     </div>
-    <div v-for="cartItem in cartItems">
-      <ShoppingCartItem :cartItem="cartItem" @refresh="refresh" />
+    <div v-for="(cartItem, index) in cartItems" :key="cartItem.id">
+      <ShoppingCartItem
+        :cartItem="cartItem"
+        @refresh="refresh"
+        v-model:checked="checkedList[index]"
+      />
     </div>
     <div class="px-2 py-4"></div>
   </div>
 
   <div class="bg-white mt-3 px-2 py-3 flex align-items-center">
-    <Checkbox class="mx-4" />
+    <Checkbox
+      class="mx-4"
+      v-model="checkAllBottom"
+      @change="handleBottomCheckChange"
+      binary
+    />
     <label class="w-8">全選({{ selected }})</label>
-    <label class="w-2">總金額({{ selected }}個商品):$0</label>
+    <label class="w-2"
+      >總金額({{ selected }}個商品):${{ total.toLocaleString() }}</label
+    >
     <Button label="去買單" class="w-2"></Button>
   </div>
 </template>
 <script setup lang="ts">
 import Checkbox from 'primevue/checkbox';
 import Button from 'primevue/button';
-import { ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { CartItem } from '@/Model/type';
 import ShoppingCartItem from './ShoppingCartItem.vue';
-defineProps<{
+const props = defineProps<{
   cartItems: CartItem[];
 }>();
 const emit = defineEmits(['refresh']);
 const storeName = ref('立達國際官方旗艦店');
-const selected = ref(1);
+const selected = computed(
+  () => checkedList.value.filter((c) => c === true).length
+);
+const checkAllTop = ref(false);
+const checkAllBottom = ref(false);
+const checkedList = ref<boolean[]>([]);
+const total = computed(() => {
+  return props.cartItems.reduce((sum, cartItem, index) => {
+    if (checkedList.value[index]) {
+      return sum + cartItem.price * cartItem.amount;
+    }
+    return sum;
+  }, 0);
+});
+watch(
+  () => props.cartItems,
+  (newItems) => {
+    checkedList.value = newItems.map(() => false);
+  }
+);
+const toggleCheckAll = (isTop: boolean) => {
+  const newValue = isTop ? checkAllTop.value : checkAllBottom.value;
+  if (isTop) {
+    checkAllBottom.value = newValue;
+  } else {
+    checkAllTop.value = newValue;
+  }
+  checkedList.value = checkedList.value.map(() => newValue);
+};
+
+const handleTopCheckChange = () => {
+  toggleCheckAll(true);
+};
+
+const handleBottomCheckChange = () => {
+  toggleCheckAll(false);
+};
+
 const refresh = () => {
   emit('refresh');
 };

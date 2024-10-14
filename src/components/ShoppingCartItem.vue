@@ -1,6 +1,6 @@
 <template>
   <div class="pl-2 pr-4 mt-3 flex align-items-center divider">
-    <Checkbox class="mx-4" />
+    <Checkbox class="mx-4" v-model="checked" binary />
     <Image :src="cartItem.imageUrl" width="90" />
     <div class="w-3">
       <router-link
@@ -60,6 +60,7 @@ import { debounce } from 'lodash';
 const props = defineProps<{
   cartItem: CartItem;
 }>();
+const checked = defineModel('checked');
 const emit = defineEmits(['refresh']);
 const deleteItem = async (id: number) => {
   try {
@@ -80,7 +81,7 @@ const debouncedQuantityChange = debounce(async (value: number) => {
       isUpdating.value = true;
       props.cartItem.amount = value;
       await updateCartItem(props.cartItem.id, value);
-      emit('refresh');
+      // emit('refresh');
     }
   } catch (error) {
   } finally {
