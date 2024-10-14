@@ -15,14 +15,16 @@
         >規格: {{ cartItem.variantName }}</label
       >
     </div>
-    <label class="w-2 text-center">${{ cartItem.price }}</label>
+    <label class="w-2 text-center"
+      >${{ Number(cartItem.price).toLocaleString() }}</label
+    >
     <label class="w-2 text-center">
       <InputNumber
         v-model="cartItem.amount"
         showButtons
         buttonLayout="horizontal"
         :min="0"
-        :max="99"
+        :max="999999"
         :inputStyle="{ width: '50px', textAlign: 'center' }"
       >
         <template #incrementbuttonicon>
@@ -36,7 +38,7 @@
     <label
       class="w-2 text-center"
       style="color: var(--p-primary-color) !important"
-      >${{ cartItem.price * cartItem.amount }}</label
+      >${{ (cartItem.price * cartItem.amount).toLocaleString() }}</label
     >
     <label
       class="w-1 text-center cursor-pointer"

@@ -30,12 +30,16 @@
       <div class="price-bg text-3xl p-3 mt-2 primary-color">
         <div>
           <span v-if="selectedVariantId == null">
-            ${{ minPrice
-            }}<span v-if="minPrice !== maxPrice"> - ${{ maxPrice }}</span>
+            ${{ minPrice.toLocaleString()
+            }}<span v-if="minPrice !== maxPrice">
+              - ${{ maxPrice.toLocaleString() }}</span
+            >
           </span>
           <span v-else>
             ${{
-              props.variants?.find((v) => v.id === selectedVariantId)?.price
+              props.variants
+                ?.find((v) => v.id === selectedVariantId)
+                ?.price.toLocaleString()
             }}
           </span>
         </div>
