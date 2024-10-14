@@ -27,6 +27,7 @@
         :max="999999"
         :inputStyle="{ width: '50px', textAlign: 'center' }"
         @input="debouncedQuantityChange($event.value)"
+        :disabled="isUpdating"
       >
         <template #incrementbuttonicon>
           <span class="pi pi-plus" />
@@ -72,11 +73,18 @@ const deleteItem = async (id: number) => {
   } catch (error) {}
 };
 const amount = ref(props.cartItem.amount);
+const isUpdating = ref(false);
 const debouncedQuantityChange = debounce(async (value: number) => {
-
-  if (value !== props.cartItem.amount) {
-    props.cartItem.amount = value;
-    await updateCartItem(props.cartItem.id, value);
+  try {
+    if (value !== props.cartItem.amount) {
+      isUpdating.value = true;
+      props.cartItem.amount = value;
+      await updateCartItem(props.cartItem.id, value);
+      emit('refresh');
+    }
+  } catch (error) {
+  } finally {
+    isUpdating.value = false;
   }
 }, 1000);
 </script>
