@@ -25,7 +25,7 @@
         buttonLayout="horizontal"
         :min="0"
         :max="999999"
-        :inputStyle="{ width: '50px', textAlign: 'center' }"
+        :inputStyle="{ width: '70px', textAlign: 'center' }"
         @input="debouncedQuantityChange($event.value)"
         :disabled="isUpdating"
       >
