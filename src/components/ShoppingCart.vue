@@ -16,7 +16,7 @@
       <label class="ml-2">{{ storeName }}</label>
     </div>
     <div v-for="cartItem in cartItems">
-      <ShoppingCartItem :cartItem="cartItem" @refresh="handleDelete" />
+      <ShoppingCartItem :cartItem="cartItem" @refresh="refresh" />
     </div>
     <div class="px-2 py-4"></div>
   </div>
@@ -40,7 +40,7 @@ defineProps<{
 const emit = defineEmits(['refresh']);
 const storeName = ref('立達國際官方旗艦店');
 const selected = ref(1);
-const handleDelete = () => {
+const refresh = () => {
   emit('refresh');
 };
 </script>
