@@ -15,3 +15,8 @@ export const addCartItem = async (cartItem: AddCartItemModel) => {
   const response = await Api.post('/cart', cartItem);
   return response;
 };
+
+export const updateCartItem = async (cartId: number, amount: number) => {
+  const response = await Api.put(`/cart/${cartId}`, { amount: amount });
+  return response;
+};

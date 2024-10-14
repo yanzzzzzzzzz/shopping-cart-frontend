@@ -20,12 +20,13 @@
     >
     <label class="w-2 text-center">
       <InputNumber
-        v-model="cartItem.amount"
+        v-model="amount"
         showButtons
         buttonLayout="horizontal"
         :min="0"
         :max="999999"
         :inputStyle="{ width: '50px', textAlign: 'center' }"
+        @input="debouncedQuantityChange($event.value)"
       >
         <template #incrementbuttonicon>
           <span class="pi pi-plus" />
@@ -51,9 +52,11 @@
 import Image from 'primevue/image';
 import InputNumber from 'primevue/inputnumber';
 import Checkbox from 'primevue/checkbox';
-import { deleteCartItem } from '@/api/shoppingCart.api';
+import { deleteCartItem, updateCartItem } from '@/api/shoppingCart.api';
 import { CartItem } from '@/Model/type';
-defineProps<{
+import { ref } from 'vue';
+import { debounce } from 'lodash';
+const props = defineProps<{
   cartItem: CartItem;
 }>();
 const emit = defineEmits(['refresh']);
@@ -68,6 +71,14 @@ const deleteItem = async (id: number) => {
     emit('refresh');
   } catch (error) {}
 };
+const amount = ref(props.cartItem.amount);
+const debouncedQuantityChange = debounce(async (value: number) => {
+
+  if (value !== props.cartItem.amount) {
+    props.cartItem.amount = value;
+    await updateCartItem(props.cartItem.id, value);
+  }
+}, 1000);
 </script>
 <style scoped>
 .product-name {
