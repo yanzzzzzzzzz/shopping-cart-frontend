@@ -177,32 +177,39 @@ const addToCart = async () => {
   await addItem();
   emit('showAddToCart');
 };
-const addItem = async () => {
-  if (props.product?.id == null) return;
-  if (selectedVariantId.value == null) {
-    console.log('selectedVariantId.value == null');
-    productBg.value = '#fff5f5';
-    errorMessage.value = '請先選擇商品規格';
-    return;
-  }
-  if (!userStore.isLoggedIn) {
-    router.push({
-      name: 'login',
-    });
-    return;
-  }
-  const cartItem: AddCartItemModel = {
-    productId: props.product?.id,
-    productVariantId: selectedVariantId.value,
-    amount: amount.value,
-  };
-  console.log(cartItem);
 
-  await addCartItem(cartItem);
+const addItem = async (): Promise<boolean> => {
+  try {
+    if (props.product?.id == null) return false;
+    if (selectedVariantId.value == null) {
+      productBg.value = '#fff5f5';
+      errorMessage.value = '請先選擇商品規格';
+      return false;
+    }
+    if (!userStore.isLoggedIn) {
+      router.push({
+        name: 'login',
+      });
+      return false;
+    }
+    const cartItem: AddCartItemModel = {
+      productId: props.product.id,
+      productVariantId: selectedVariantId.value,
+      amount: amount.value,
+    };
+
+    await addCartItem(cartItem);
+    return true;
+  } catch (error: any) {
+    errorMessage.value = error.message;
+    return false;
+  }
 };
 const buyNow = async () => {
-  await addItem();
-  router.push({ name: 'cart' });
+  const addSuccess = await addItem();
+  if (addSuccess) {
+    router.push({ name: 'cart' });
+  }
 };
 </script>
 <style scoped>
