@@ -24,6 +24,11 @@ const routes = [
         component: ProductView,
         name: 'product',
       },
+      {
+        path: '/cart',
+        component: ShoppingCartView,
+        name: 'cart',
+      },
     ],
   },
   {
@@ -39,17 +44,6 @@ const routes = [
         path: 'register',
         component: RegisterView,
         name: 'register',
-      },
-    ],
-  },
-  {
-    path: '/cart',
-    component: MainLayout,
-    children: [
-      {
-        path: '',
-        component: ShoppingCartView,
-        name: 'cart',
       },
     ],
   },
