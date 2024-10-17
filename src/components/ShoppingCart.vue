@@ -37,8 +37,8 @@
       @change="handleBottomCheckChange"
       binary
     />
-    <label class="w-8">全選({{ selected }})</label>
-    <label class="w-2"
+    <label class="w-7">全選({{ selected }})</label>
+    <label class="w-3 text-right pr-2"
       >總金額({{ selected }}個商品):${{ total.toLocaleString() }}</label
     >
     <Button label="去買單" class="w-2"></Button>
