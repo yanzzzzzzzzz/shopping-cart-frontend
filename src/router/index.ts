@@ -9,6 +9,7 @@ import ShoppingCartView from '@/views/ShoppingCartView.vue';
 import { checkTokenValidity } from '@/utils/tokenUtils';
 import { useUserStore } from '@/stores/userStore';
 import { decodeToken } from '@/utils/tokenUtils';
+import CheckOutView from '@/views/CheckOutView.vue';
 const routes = [
   {
     path: '/',
@@ -28,6 +29,11 @@ const routes = [
         path: 'cart',
         component: ShoppingCartView,
         name: 'cart',
+      },
+      {
+        path: 'checkout',
+        component: CheckOutView,
+        name: 'checkout',
       },
     ],
   },
