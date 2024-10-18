@@ -66,7 +66,8 @@
         </div>
       </div>
       <div class="register-link">
-        還沒有帳號？ <router-link to="/auth/register">立即註冊</router-link>
+        還沒有帳號？
+        <router-link :to="{ name: 'register' }">立即註冊</router-link>
       </div>
     </div>
   </div>
