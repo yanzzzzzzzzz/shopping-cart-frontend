@@ -41,7 +41,7 @@
     <label class="w-3 text-right pr-2"
       >總金額({{ selected }}個商品):${{ total.toLocaleString() }}</label
     >
-    <Button label="去買單" class="w-2"></Button>
+    <Button label="去買單" class="w-2" @click="checkout"></Button>
   </div>
 </template>
 <script setup lang="ts">
@@ -50,6 +50,9 @@ import Button from 'primevue/button';
 import { computed, ref, watch } from 'vue';
 import { CartItem } from '@/Model/type';
 import ShoppingCartItem from './ShoppingCartItem.vue';
+import router from '@/router';
+import { useCartStore } from '@/stores/cartStore';
+const cartStore = useCartStore();
 const props = defineProps<{
   cartItems: CartItem[];
 }>();
@@ -85,6 +88,18 @@ const toggleCheckAll = (isTop: boolean) => {
   checkedList.value = checkedList.value.map(() => newValue);
 };
 
+const checkout = () => {
+  cartStore.clearItems();
+  const selectedItems = props.cartItems.filter(
+    (_, index) => checkedList.value[index]
+  );
+  if (selectedItems.length === 0) {
+    console.log('請先選擇商品');
+    return;
+  }
+  cartStore.setItems(selectedItems);
+  router.push({ name: 'checkout' });
+};
 const handleTopCheckChange = () => {
   toggleCheckAll(true);
 };
