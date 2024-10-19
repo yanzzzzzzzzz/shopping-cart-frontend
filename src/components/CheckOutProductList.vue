@@ -25,9 +25,9 @@
         >訂單金額 ({{ checkoutItems == null ? 0 : checkoutItems.length }})
         商品:</label
       >
-      <label class="pr-2">{{
-        totalPrice ? totalPrice.toLocaleString() : '0'
-      }}</label>
+      <label class="pr-2 text-primary"
+        >${{ totalPrice ? totalPrice.toLocaleString() : '0' }}</label
+      >
     </div>
   </div>
 </template>
@@ -46,3 +46,8 @@ const totalPrice = computed(() => {
   }, 0);
 });
 </script>
+<style>
+.text-primary {
+  color: var(--p-primary-color) !important;
+}
+</style>
