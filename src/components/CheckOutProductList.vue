@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-white pl-2 pr-4 py-3" style="width: 1200px">
-    <div class="flex pl-4 pt-4 pr-2">
+  <div style="width: 1200px">
+    <div class="flex px-4 pt-5">
       <label class="w-6">訂單商品</label>
       <label class="w-2 text-right">單價</label>
       <label class="w-2 text-right">數量</label>
@@ -14,18 +14,23 @@
       </div>
     </div>
     <div
-      class="flex pl-4 pt-4 pr-2 align-items-center"
+      class="flex px-4 pt-4 align-items-center"
       v-for="product in checkoutItems"
       :key="product.id"
     >
       <checkOutProductItem :product="product" />
     </div>
-    <div class="text-right mt-3">
-      <label class="pr-7"
-        >訂單金額 ({{ checkoutItems == null ? 0 : checkoutItems.length }})
-        商品:</label
+    <div
+      class="text-right mt-3 py-3 border-style"
+      style="background-color: #fafdff"
+    >
+      <label class="pr-7" style="color: rgba(0, 0, 0, 0.54)"
+        >訂單金額 ({{
+          checkoutItems == null ? 0 : checkoutItems.length
+        }}
+        商品):</label
       >
-      <label class="pr-2 text-primary"
+      <label class="pr-4 text-primary text-xl"
         >${{ totalPrice ? totalPrice.toLocaleString() : '0' }}</label
       >
     </div>
@@ -49,5 +54,8 @@ const totalPrice = computed(() => {
 <style scoped>
 .text-primary {
   color: var(--p-primary-color) !important;
+}
+.border-style {
+  border-top: 1px dashed rgba(0, 0, 0, 0.09);
 }
 </style>

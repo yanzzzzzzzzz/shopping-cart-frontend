@@ -1,5 +1,5 @@
 <template>
-  <CheckOutProductList :checkoutItems="checkoutItems" />
+  <CheckOutProductList class="bg-white" :checkoutItems="checkoutItems" />
 </template>
 <script setup lang="ts">
 import CheckOutProductList from '@/components/CheckOutProductList.vue';
