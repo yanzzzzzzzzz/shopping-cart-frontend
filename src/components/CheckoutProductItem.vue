@@ -15,11 +15,13 @@
     >
   </div>
 
-  <label class="w-2 text-right">{{ product.price.toLocaleString() }}</label>
+  <label class="w-2 text-right"
+    >${{ Number(product.price).toLocaleString() }}</label
+  >
   <label class="w-2 text-right">{{ product.amount }}</label>
-  <label class="w-2 text-right">{{
-    (product.price * product.amount).toLocaleString()
-  }}</label>
+  <label class="w-2 text-right"
+    >${{ (product.price * product.amount).toLocaleString() }}</label
+  >
 </template>
 
 <script setup lang="ts">
