@@ -46,7 +46,7 @@ const totalPrice = computed(() => {
   }, 0);
 });
 </script>
-<style>
+<style scoped>
 .text-primary {
   color: var(--p-primary-color) !important;
 }
