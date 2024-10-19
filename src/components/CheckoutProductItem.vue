@@ -1,5 +1,5 @@
 <template>
-  <div class="w-6 flex align-items-center">
+  <div class="w-4 flex align-items-center">
     <Image
       :src="product.imageUrl"
       alt="Image"
@@ -8,6 +8,11 @@
       imageClass="border-circle"
     />
     <label class="product-name">{{ product.name }}</label>
+  </div>
+  <div class="w-2">
+    <label v-if="product.variantName != null" class="product-variant-name ml-3"
+      >選項: {{ product.variantName }}</label
+    >
   </div>
 
   <label class="w-2 text-right">{{ product.price.toLocaleString() }}</label>
@@ -28,9 +33,16 @@ const props = defineProps<{
 
 <style scoped>
 .product-name {
-  max-width: 450px; /* 设置最大宽度以防止溢出 */
-  white-space: nowrap; /* 不换行 */
-  overflow: hidden; /* 隐藏超出部分 */
-  text-overflow: ellipsis; /* 显示省略号 */
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.product-variant-name {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: gray;
 }
 </style>
