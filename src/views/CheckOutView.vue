@@ -32,6 +32,7 @@ const checkoutItems = ref<Array<CartItem>>();
 const variants = ref(['貨到付款', '信用卡']);
 const selectedVariant = ref('');
 onMounted(() => {
+  cartStore.initItems();
   if (cartStore.selectedItems.length === 0) {
     alert('結帳商品為空, 請先選擇商品');
     router.push({ name: 'home' });
