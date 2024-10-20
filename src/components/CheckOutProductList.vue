@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 1200px">
+  <div class="bg-white" style="width: 1200px">
     <div class="flex px-4 pt-5">
       <label class="w-6">訂單商品</label>
       <label class="w-2 text-right">單價</label>
