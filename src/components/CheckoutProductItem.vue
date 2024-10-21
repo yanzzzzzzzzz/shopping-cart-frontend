@@ -25,7 +25,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
 import { CartItem } from '@/Model/type';
 import Image from 'primevue/image';
 const props = defineProps<{
