@@ -7,12 +7,12 @@
         <div class="flex align-items-center">
           <div class="w-2">付款方式</div>
           <button
-            v-for="productVariant in variants"
+            v-for="payment in payments"
             class="type-button"
-            :class="{ selected: selectedVariant === productVariant }"
-            @click="selectedVariant = productVariant"
+            :class="{ selected: selectedPayment === payment }"
+            @click="selectedPayment = payment"
           >
-            {{ productVariant }}
+            {{ payment }}
           </button>
         </div>
       </div>
@@ -22,15 +22,14 @@
 <script setup lang="ts">
 import CheckOutProductList from '@/components/CheckOutProductList.vue';
 import DiscountCoupon from '@/components/DiscountCoupon.vue';
-import RadioButton from 'primevue/radiobutton';
 import { onMounted, ref } from 'vue';
 import { useCartStore } from '@/stores/cartStore';
 import { CartItem } from '@/Model/type';
 import router from '@/router';
 const cartStore = useCartStore();
 const checkoutItems = ref<Array<CartItem>>();
-const variants = ref(['貨到付款', '信用卡']);
-const selectedVariant = ref('');
+const payments = ref(['貨到付款', '信用卡']);
+const selectedPayment = ref('貨到付款');
 onMounted(() => {
   cartStore.initItems();
   if (cartStore.selectedItems.length === 0) {
