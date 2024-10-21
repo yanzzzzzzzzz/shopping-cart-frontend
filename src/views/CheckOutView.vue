@@ -7,7 +7,7 @@
         <div class="flex align-items-center">
           <div class="w-2">付款方式</div>
           <button
-            v-for="payment in payments"
+            v-for="payment in typeOfPayments"
             class="type-button"
             :class="{ selected: selectedPayment === payment }"
             @click="selectedPayment = payment"
@@ -28,7 +28,7 @@ import { CartItem } from '@/Model/type';
 import router from '@/router';
 const cartStore = useCartStore();
 const checkoutItems = ref<Array<CartItem>>();
-const payments = ref(['貨到付款', '信用卡']);
+const typeOfPayments = ref(['貨到付款', '信用卡']);
 const selectedPayment = ref('貨到付款');
 onMounted(() => {
   cartStore.initItems();
