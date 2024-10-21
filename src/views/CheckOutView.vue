@@ -2,16 +2,22 @@
   <div>
     <CheckOutProductList :checkoutItems="checkoutItems" />
     <DiscountCoupon />
-    <PaymentMethodSelector />
+    <PaymentMethodSelector :totalPrice="totalPrice" />
+    <div class="bg-white justify-content-end flex" style="width: 1200px">
+      <div class="p-5">
+        <Button class="mr-2 w-15rem border-noround" label="下訂單"></Button>
+      </div>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
 import CheckOutProductList from '@/components/CheckOutProductList.vue';
 import DiscountCoupon from '@/components/DiscountCoupon.vue';
 import PaymentMethodSelector from '@/components/PaymentMethodSelector.vue';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useCartStore } from '@/stores/cartStore';
 import { CartItem } from '@/Model/type';
+import Button from 'primevue/button';
 import router from '@/router';
 const cartStore = useCartStore();
 const checkoutItems = ref<Array<CartItem>>();
@@ -26,5 +32,12 @@ onMounted(() => {
   console.log('cartStore.selectedItems', cartStore.selectedItems);
 
   checkoutItems.value = cartStore.selectedItems;
+});
+const totalPrice = computed(() => {
+  return checkoutItems.value
+    ? checkoutItems.value.reduce((sum, productItem) => {
+        return sum + productItem.price * productItem.amount;
+      }, 0)
+    : 0;
 });
 </script>
