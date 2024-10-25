@@ -77,3 +77,12 @@ export interface AddCartItemModel {
   productVariantId: number;
   amount: number;
 }
+
+export interface CheckoutModel {
+  shippingAddress: string;
+  totalAmount: number;
+  shippingFee: number | null;
+  couponUsed: string | null;
+  paymentMethod: string;
+  shoppingCartIds: Array<number>; //要結帳的商品清單
+}
