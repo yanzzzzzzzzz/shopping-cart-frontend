@@ -2,10 +2,18 @@
   <div>
     <CheckOutProductList :checkoutItems="checkoutItems" />
     <DiscountCoupon />
-    <PaymentMethodSelector :totalPrice="totalPrice" />
+    <PaymentMethodSelector
+      :totalPrice="totalPrice"
+      :shippingFee="shippingFee"
+    />
+    <CheckoutTotalPrice :shippingFee="shippingFee" :totalPrice="totalPrice" />
     <div class="bg-white justify-content-end flex" style="width: 1200px">
       <div class="p-5">
-        <Button class="mr-2 w-15rem border-noround" label="下訂單"></Button>
+        <Button
+          class="mr-2 w-15rem border-noround"
+          label="下訂單"
+          @click="processCheckout"
+        ></Button>
       </div>
     </div>
   </div>
@@ -19,8 +27,10 @@ import { useCartStore } from '@/stores/cartStore';
 import { CartItem } from '@/Model/type';
 import Button from 'primevue/button';
 import router from '@/router';
+import CheckoutTotalPrice from '@/components/CheckoutTotalPrice.vue';
 const cartStore = useCartStore();
 const checkoutItems = ref<Array<CartItem>>();
+const shippingFee = ref(60);
 
 onMounted(() => {
   cartStore.initItems();
