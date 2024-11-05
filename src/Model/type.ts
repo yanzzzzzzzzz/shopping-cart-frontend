@@ -84,5 +84,13 @@ export interface CheckoutModel {
   shippingFee: number | null;
   couponUsed: string | null;
   paymentMethod: string;
-  shoppingCartIds: Array<number>; //要結帳的商品清單
+  items: Array<checkoutItem>;
+}
+
+export interface checkoutItem {
+  productId: number;
+  productVariantId: number;
+  quantity: number;
+  price: number;
+  totalAmount: number;
 }

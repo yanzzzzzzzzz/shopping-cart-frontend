@@ -24,9 +24,10 @@ import DiscountCoupon from '@/components/DiscountCoupon.vue';
 import PaymentMethodSelector from '@/components/PaymentMethodSelector.vue';
 import { computed, onMounted, ref } from 'vue';
 import { useCartStore } from '@/stores/cartStore';
-import { CartItem } from '@/Model/type';
+import { CartItem, checkoutItem, CheckoutModel } from '@/Model/type';
 import Button from 'primevue/button';
 import router from '@/router';
+import { checkout } from '@/api/checkout.api';
 import CheckoutTotalPrice from '@/components/CheckoutTotalPrice.vue';
 const cartStore = useCartStore();
 const checkoutItems = ref<Array<CartItem>>();
@@ -50,4 +51,27 @@ const totalPrice = computed(() => {
       }, 0)
     : 0;
 });
+
+const processCheckout = async () => {
+  if (checkoutItems.value == null) {
+    alert('結帳時商品不能為空');
+    return;
+  }
+  const items: checkoutItem[] = checkoutItems.value.map((item: CartItem) => ({
+    productId: item.productId,
+    productVariantId: item.productVariantId,
+    quantity: item.amount,
+    price: item.price,
+    totalAmount: item.price * item.amount,
+  }));
+  const checkOutModel: CheckoutModel = {
+    shippingAddress: '123',
+    totalAmount: totalPrice.value,
+    shippingFee: shippingFee.value,
+    couponUsed: '',
+    paymentMethod: 'creditCard',
+    items: items,
+  };
+  const res = await checkout(checkOutModel);
+};
 </script>
