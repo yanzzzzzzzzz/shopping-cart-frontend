@@ -11,6 +11,7 @@ import { useUserStore } from '@/stores/userStore';
 import { decodeToken } from '@/utils/tokenUtils';
 import CheckOutView from '@/views/CheckOutView.vue';
 import PaymentStatusView from '@/views/PaymentStatusView.vue';
+import UserInfoView from '@/views/UserInfoView.vue';
 const routes = [
   {
     path: '/',
@@ -40,6 +41,11 @@ const routes = [
         path: 'paymentStatus',
         component: PaymentStatusView,
         name: 'paymentStatus',
+      },
+      {
+        path: 'user/account',
+        component: UserInfoView,
+        name: 'userInfo',
       },
     ],
   },

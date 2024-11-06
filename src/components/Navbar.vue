@@ -21,7 +21,9 @@
           <router-link :to="{ name: 'register' }">註冊</router-link>
         </li>
         <li v-if="isLoggedIn">
-          <router-link to="register">Hi,{{ userName }}</router-link>
+          <router-link :to="{ name: 'userInfo' }"
+            >Hi,{{ userName }}</router-link
+          >
         </li>
         <li v-if="isLoggedIn">
           <a @click="logout" class="cursor-pointer">登出</a>
