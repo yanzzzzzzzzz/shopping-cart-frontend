@@ -34,7 +34,7 @@ const checkoutItems = ref<Array<CartItem>>();
 const shippingFee = ref(60);
 
 onMounted(() => {
-  cartStore.initItems();
+  // cartStore.initItems();
   if (cartStore.selectedItems.length === 0) {
     alert('結帳商品為空, 請先選擇商品');
     router.push({ name: 'home' });
@@ -53,25 +53,33 @@ const totalPrice = computed(() => {
 });
 
 const processCheckout = async () => {
-  if (checkoutItems.value == null) {
-    alert('結帳時商品不能為空');
-    return;
+  try {
+    if (checkoutItems.value == null) {
+      alert('結帳時商品不能為空');
+      return;
+    }
+    const items: checkoutItem[] = checkoutItems.value.map((item: CartItem) => ({
+      cartId: item.id,
+      productId: item.productId,
+      productVariantId: item.productVariantId,
+      quantity: item.amount,
+      price: item.price,
+      totalAmount: item.price * item.amount,
+    }));
+    const checkOutModel: CheckoutModel = {
+      shippingAddress: 'test address',
+      totalAmount: totalPrice.value,
+      shippingFee: shippingFee.value,
+      couponUsed: '',
+      paymentMethod: 'creditCard',
+      items: items,
+    };
+    const res = await checkout(checkOutModel);
+    if (res.status === 200) {
+      router.push({ name: 'paymentStatus' });
+    }
+  } catch (error) {
+    console.log('error:', error);
   }
-  const items: checkoutItem[] = checkoutItems.value.map((item: CartItem) => ({
-    productId: item.productId,
-    productVariantId: item.productVariantId,
-    quantity: item.amount,
-    price: item.price,
-    totalAmount: item.price * item.amount,
-  }));
-  const checkOutModel: CheckoutModel = {
-    shippingAddress: '123',
-    totalAmount: totalPrice.value,
-    shippingFee: shippingFee.value,
-    couponUsed: '',
-    paymentMethod: 'creditCard',
-    items: items,
-  };
-  const res = await checkout(checkOutModel);
 };
 </script>

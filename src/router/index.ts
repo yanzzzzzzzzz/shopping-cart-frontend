@@ -10,6 +10,7 @@ import { checkTokenValidity } from '@/utils/tokenUtils';
 import { useUserStore } from '@/stores/userStore';
 import { decodeToken } from '@/utils/tokenUtils';
 import CheckOutView from '@/views/CheckOutView.vue';
+import PaymentStatusView from '@/views/PaymentStatusView.vue';
 const routes = [
   {
     path: '/',
@@ -34,6 +35,11 @@ const routes = [
         path: 'checkout',
         component: CheckOutView,
         name: 'checkout',
+      },
+      {
+        path: 'paymentStatus',
+        component: PaymentStatusView,
+        name: 'paymentStatus',
       },
     ],
   },

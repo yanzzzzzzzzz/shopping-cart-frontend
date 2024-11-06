@@ -88,6 +88,7 @@ export interface CheckoutModel {
 }
 
 export interface checkoutItem {
+  cartId: number;
   productId: number;
   productVariantId: number;
   quantity: number;
