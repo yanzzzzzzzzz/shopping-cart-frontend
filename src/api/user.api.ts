@@ -2,9 +2,9 @@ import axios from 'axios';
 import {
   LoginResponseModel,
   LoginModel,
-  ProfileModel,
   RegisterResponseModel,
   RegisterModel,
+  UserInfoModel,
 } from '@/Model/type';
 
 export const Api = axios.create({
@@ -34,14 +34,15 @@ export const tokenIsExpired = async (token: string): Promise<boolean> => {
   }
 };
 
-export const profile = async (token: string): Promise<ProfileModel> => {
+export const getUserInfo = async (): Promise<UserInfoModel> => {
   try {
-    const response = await Api.get('/profile', {
+    const token = localStorage.getItem('token');
+    const response = await Api.get('/', {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
   } catch (error) {
-    console.error('profile error:', error);
+    console.error('userInfo error:', error);
     throw error;
   }
 };

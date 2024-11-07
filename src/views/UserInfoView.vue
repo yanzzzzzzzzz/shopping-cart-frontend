@@ -1,17 +1,17 @@
 <template>
   <div class="bg-white p-5" style="width: 1200px">
     <div class="pb-3 border-bottom-line"><h3>我的檔案</h3></div>
-    <div class="m-4 pl-8 flex" style="flex-direction: row">
+    <div v-if="userInfo" class="m-4 pl-8 flex" style="flex-direction: row">
       <div>
         <table>
           <tr>
             <td class="title">使用者帳號</td>
-            <td class="text">{{ userInfo.account }}</td>
+            <td class="text">{{ userInfo.username }}</td>
           </tr>
           <tr>
             <td class="title">姓名</td>
             <td class="text">
-              <InputText v-model="userInfo.userName" />
+              <InputText v-model="userInfo.name" />
             </td>
           </tr>
           <tr>
@@ -22,7 +22,7 @@
           </tr>
           <tr>
             <td class="title">手機號碼</td>
-            <td class="text"><InputText v-model="userInfo.phoneNumber" /></td>
+            <td class="text"><InputText v-model="userInfo.phone" /></td>
           </tr>
           <tr>
             <td class="title">性別</td>
@@ -34,10 +34,10 @@
                   class="flex items-center"
                 >
                   <RadioButton
-                    v-model="selectedCategory"
+                    v-model="userInfo.sex"
                     :inputId="category.key"
                     name="dynamic"
-                    :value="category.name"
+                    :value="category.key"
                   />
                   <label :for="category.key">{{ category.name }}</label>
                 </div>
@@ -46,7 +46,12 @@
           </tr>
           <tr>
             <td class="title">生日</td>
-            <td class="text">{{ userInfo.birth }}</td>
+            <td class="text">
+              <span v-if="userInfo.birthday">
+                {{ formatDate(userInfo.birthday) }}
+              </span>
+              <span v-else>未設定</span>
+            </td>
           </tr>
           <tr>
             <td></td>
@@ -56,10 +61,15 @@
           </tr>
         </table>
       </div>
-      <div class="flex" style="justify-content: center; width: 17.5rem">
-        <div style="flex-direction: column">
-          <img :src="userInfo.image" class="rounded-image" />
-          <div>
+      <div class="flex" style="justify-content: center; margin: auto">
+        <div>
+          <img
+            v-if="userInfo?.imageUrl"
+            :src="userInfo.imageUrl"
+            class="rounded-image"
+          />
+          <p v-else>沒有圖片</p>
+          <div class="flex justify-content-center">
             <Button label="選擇圖片"></Button>
           </div>
         </div>
@@ -72,24 +82,31 @@ import { useUserStore } from '@/stores/userStore';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import RadioButton from 'primevue/radiobutton';
+import { getUserInfo } from '@/api/user.api';
+import { UserInfoModel } from '@/Model/type';
+import dayjs from 'dayjs';
 
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 const userStore = useUserStore();
-const userInfo = ref({
-  account: userStore.userName,
-  userName: userStore.userName,
-  email: 'ewrwre@yahso.com.tw',
-  phoneNumber: '0987654321',
-  sex: '男',
-  birth: '1911/01/01',
-  image: 'https://i.imgur.com/Jvh1OQm.jpeg',
-});
 const selectedCategory = ref('男');
 const categories = ref([
-  { name: '男', key: 'male' },
-  { name: '女', key: 'female' },
-  { name: '其他', key: 'other' },
+  { name: '男', key: 'M' },
+  { name: '女', key: 'F' },
+  { name: '其他', key: 'OTHER' },
 ]);
+const userInfo = ref<UserInfoModel | null>(null);
+
+const fetchUserInfo = async () => {
+  try {
+    userInfo.value = await getUserInfo();
+  } catch (error) {
+    console.error('获取用户信息失败:', error);
+  }
+};
+const formatDate = (date: Date): string => {
+  return dayjs(date).format('YYYY/MM/DD');
+};
+onMounted(fetchUserInfo);
 </script>
 <style scoped>
 .border-bottom-line {

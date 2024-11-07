@@ -38,10 +38,16 @@ export interface LoginResponseModel {
   token: string;
 }
 
-export interface ProfileModel {
+export interface UserInfoModel {
   username: string;
   email: string;
   id: number;
+  createdAt: Date;
+  phone?: string;
+  sex?: 'M' | 'F' | 'OTHER';
+  birthday?: Date;
+  imageUrl?: string;
+  name?: string;
 }
 
 export interface RegisterModel {
