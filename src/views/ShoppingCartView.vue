@@ -27,7 +27,7 @@ onMounted(async () => {
   try {
     await fetchData();
   } catch (error: any) {
-    console.error('profile error:', error);
+    console.error('get cart items error:', error);
   }
 });
 </script>
