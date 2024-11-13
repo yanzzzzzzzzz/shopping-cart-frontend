@@ -44,11 +44,12 @@ export interface UserInfoModel {
   id: number;
   createdAt: Date;
   phone?: string;
-  sex?: 'M' | 'F' | 'OTHER';
+  sex?: 'M' | 'F' | 'O';
   birthday?: Date;
   imageUrl?: string;
   name?: string;
 }
+export type UserInfoUpdateModel = Omit<UserInfoModel, 'id' | 'username'>;
 
 export interface RegisterModel {
   username: string;

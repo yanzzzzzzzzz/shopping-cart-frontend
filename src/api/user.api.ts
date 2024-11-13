@@ -5,6 +5,7 @@ import {
   RegisterResponseModel,
   RegisterModel,
   UserInfoModel,
+  UserInfoUpdateModel,
 } from '@/Model/type';
 
 export const Api = axios.create({
@@ -57,4 +58,12 @@ export const register = async (
     console.error('register error:', error);
     throw error;
   }
+};
+
+export const Update = async (UserInfoUpdateModel: UserInfoUpdateModel) => {
+  const token = localStorage.getItem('token');
+  const response = await Api.put('', UserInfoUpdateModel, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response;
 };

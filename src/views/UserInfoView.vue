@@ -47,16 +47,18 @@
           <tr>
             <td class="title">生日</td>
             <td class="text">
-              <span v-if="userInfo.birthday">
-                {{ formatDate(userInfo.birthday) }}
-              </span>
-              <span v-else>未設定</span>
+              <DatePicker
+                v-model="userInfo.birthday"
+                showIcon
+                :showOnFocus="false"
+                dateFormat="yy/mm/dd"
+              />
             </td>
           </tr>
           <tr>
             <td></td>
             <td>
-              <Button label="儲存"></Button>
+              <Button label="儲存" @click="save"></Button>
             </td>
           </tr>
         </table>
@@ -78,21 +80,22 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useUserStore } from '@/stores/userStore';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import RadioButton from 'primevue/radiobutton';
-import { getUserInfo } from '@/api/user.api';
-import { UserInfoModel } from '@/Model/type';
+import { getUserInfo, Update } from '@/api/user.api';
+import { UserInfoModel, UserInfoUpdateModel } from '@/Model/type';
 import dayjs from 'dayjs';
+import DatePicker from 'primevue/datepicker';
 
 import { onMounted, ref } from 'vue';
-const userStore = useUserStore();
-const selectedCategory = ref('男');
+onMounted(async () => {
+  await fetchUserInfo();
+});
 const categories = ref([
   { name: '男', key: 'M' },
   { name: '女', key: 'F' },
-  { name: '其他', key: 'OTHER' },
+  { name: '其他', key: 'O' },
 ]);
 const userInfo = ref<UserInfoModel | null>(null);
 
@@ -100,13 +103,13 @@ const fetchUserInfo = async () => {
   try {
     userInfo.value = await getUserInfo();
   } catch (error) {
-    console.error('获取用户信息失败:', error);
+    console.error('error:', error);
   }
 };
-const formatDate = (date: Date): string => {
-  return dayjs(date).format('YYYY/MM/DD');
+const save = async () => {
+  const response = await Update(userInfo.value as UserInfoUpdateModel);
+  console.log(response);
 };
-onMounted(fetchUserInfo);
 </script>
 <style scoped>
 .border-bottom-line {
