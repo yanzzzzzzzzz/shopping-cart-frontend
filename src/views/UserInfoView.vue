@@ -82,7 +82,7 @@ import RadioButton from 'primevue/radiobutton';
 import { getUserInfo, Update } from '@/api/user.api';
 import { UserInfoModel, UserInfoUpdateModel } from '@/Model/type';
 import DatePicker from 'primevue/datepicker';
-import { getImage } from '@/api/imageApi';
+import { getImage } from '@/api/image.api';
 import { onMounted, ref } from 'vue';
 onMounted(async () => {
   await fetchUserInfo();
