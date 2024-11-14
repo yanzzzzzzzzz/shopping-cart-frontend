@@ -46,7 +46,7 @@ export interface UserInfoModel {
   phone?: string;
   sex?: 'M' | 'F' | 'O';
   birthday?: Date;
-  imageUrl?: string;
+  imageId?: number;
   name?: string;
 }
 export type UserInfoUpdateModel = Omit<UserInfoModel, 'id' | 'username'>;
