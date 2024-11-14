@@ -65,11 +65,7 @@
       </div>
       <div class="flex" style="justify-content: center; margin: auto">
         <div>
-          <img
-            v-if="userInfo?.imageUrl"
-            :src="userInfo.imageUrl"
-            class="rounded-image"
-          />
+          <img v-if="userInfo?.imageId" :src="imageUrl" class="rounded-image" />
           <p v-else>沒有圖片</p>
           <div class="flex justify-content-center">
             <Button label="選擇圖片"></Button>
@@ -85,12 +81,16 @@ import Button from 'primevue/button';
 import RadioButton from 'primevue/radiobutton';
 import { getUserInfo, Update } from '@/api/user.api';
 import { UserInfoModel, UserInfoUpdateModel } from '@/Model/type';
-import dayjs from 'dayjs';
 import DatePicker from 'primevue/datepicker';
-
+import { getImage } from '@/api/imageApi';
 import { onMounted, ref } from 'vue';
 onMounted(async () => {
   await fetchUserInfo();
+  if (userInfo.value?.imageId) {
+    const data = await getImage(userInfo.value.imageId);
+    imageUrl.value = data.imageUrl;
+    console.log('data', data);
+  }
 });
 const categories = ref([
   { name: '男', key: 'M' },
@@ -98,7 +98,7 @@ const categories = ref([
   { name: '其他', key: 'O' },
 ]);
 const userInfo = ref<UserInfoModel | null>(null);
-
+const imageUrl = ref('');
 const fetchUserInfo = async () => {
   try {
     userInfo.value = await getUserInfo();
