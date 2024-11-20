@@ -45,7 +45,7 @@ export interface UserInfoModel {
   createdAt: Date;
   phone?: string;
   sex?: 'M' | 'F' | 'O';
-  birthday?: Date;
+  birthday: Date | null;
   imageId?: number;
   name?: string;
 }

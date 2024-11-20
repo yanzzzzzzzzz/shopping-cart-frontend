@@ -10,6 +10,7 @@ import router from './router';
 import './style.css';
 import { definePreset } from '@primevue/themes';
 import Tooltip from 'primevue/tooltip';
+import ToastService from 'primevue/toastservice';
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -42,6 +43,7 @@ app.use(PrimeVue, {
     },
   },
 });
+app.use(ToastService);
 app.use(router);
 app.use(pinia);
 app.directive('tooltip', Tooltip);
