@@ -1,5 +1,5 @@
 <template>
-  <div class="card flex justify-content-center">
+  <div class="card flex justify-content-center" style="flex-direction: columns">
     <input
       type="file"
       id="media"
@@ -7,7 +7,9 @@
       @change="(event) => handleFileUpload(event)"
       class="hidden"
     />
-    <label for="media">選擇圖片</label>
+    <label for="media" class="select-image-label px-3 py-2 mt-3"
+      >選擇圖片</label
+    >
   </div>
 </template>
 
@@ -42,3 +44,8 @@ const removeFile = () => {
   file.value = null;
 };
 </script>
+<style scoped>
+.select-image-label {
+  border: 1px solid rgba(0, 0, 0, 0.09);
+}
+</style>
