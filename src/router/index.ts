@@ -12,6 +12,7 @@ import { decodeToken } from '@/utils/tokenUtils';
 import CheckOutView from '@/views/CheckOutView.vue';
 import PaymentStatusView from '@/views/PaymentStatusView.vue';
 import UserInfoView from '@/views/UserInfoView.vue';
+import SearchBarAndSideMenuLayout from '@/layouts/SearchBarAndSideMenuLayout.vue';
 const routes = [
   {
     path: '/',
@@ -42,11 +43,6 @@ const routes = [
         component: PaymentStatusView,
         name: 'paymentStatus',
       },
-      {
-        path: 'user/account',
-        component: UserInfoView,
-        name: 'userInfo',
-      },
     ],
   },
   {
@@ -62,6 +58,22 @@ const routes = [
         path: 'register',
         component: RegisterView,
         name: 'register',
+      },
+    ],
+  },
+  {
+    path: '/user/',
+    component: SearchBarAndSideMenuLayout,
+    children: [
+      {
+        path: 'account/profile',
+        component: UserInfoView,
+        name: 'userInfo',
+      },
+      {
+        path: 'purchase',
+        component: UserInfoView,
+        name: 'purchase',
       },
     ],
   },
