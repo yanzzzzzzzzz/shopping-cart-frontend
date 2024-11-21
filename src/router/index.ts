@@ -13,6 +13,7 @@ import CheckOutView from '@/views/CheckOutView.vue';
 import PaymentStatusView from '@/views/PaymentStatusView.vue';
 import UserInfoView from '@/views/UserInfoView.vue';
 import SearchBarAndSideMenuLayout from '@/layouts/SearchBarAndSideMenuLayout.vue';
+import PurchaseView from '@/views/PurchaseView.vue';
 const routes = [
   {
     path: '/',
@@ -72,7 +73,7 @@ const routes = [
       },
       {
         path: 'purchase',
-        component: UserInfoView,
+        component: PurchaseView,
         name: 'purchase',
       },
     ],
