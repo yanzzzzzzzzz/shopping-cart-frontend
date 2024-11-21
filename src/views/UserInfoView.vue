@@ -1,8 +1,8 @@
 <template>
   <Toast />
-  <div class="bg-white p-5" style="width: 1200px">
-    <div class="pb-3 border-bottom-line"><h3>我的檔案</h3></div>
-    <div v-if="userInfo" class="m-4 pl-8 flex" style="flex-direction: row">
+  <div class="bg-white px-3" style="width: 1200px">
+    <div class="pb-2 pl-3 border-bottom-line"><h3>我的檔案</h3></div>
+    <div v-if="userInfo" class="m-4 flex" style="flex-direction: row">
       <div class="pr-5 border-right-line">
         <table>
           <tr>
@@ -64,7 +64,7 @@
           </tr>
         </table>
       </div>
-      <div class="flex" style="justify-content: center; margin: auto">
+      <div class="flex" style="justify-content: center; margin: 50px auto">
         <div>
           <img v-if="filePreview" :src="filePreview" class="rounded-image" />
           <img
