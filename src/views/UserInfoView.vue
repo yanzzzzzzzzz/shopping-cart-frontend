@@ -1,6 +1,6 @@
 <template>
   <Toast />
-  <div class="bg-white px-3" style="width: 1200px">
+  <div class="bg-white px-3" style="width: 980px">
     <div class="pb-2 pl-3 border-bottom-line"><h3>我的檔案</h3></div>
     <div v-if="userInfo" class="m-4 flex" style="flex-direction: row">
       <div class="pr-5 border-right-line">
