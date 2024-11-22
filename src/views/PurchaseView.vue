@@ -1,25 +1,24 @@
 <template>
   <div style="width: 980px; background: #f5f5f5">
-    <section class="QmO3Bu mb-2">
+    <section class="sticky-header">
       <a
-        v-for="(type, index) in types"
+        v-for="(type, index) in orderStatusTypes"
         :key="index"
-        class="KI5har"
+        class="order-status-menu"
         :title="type"
       >
         <span>{{ type }}</span>
       </a>
     </section>
-    <section>
-      <div class="Gv8cvd">
-        <InputText
-          class="w-full search-input"
-          v-model="value2"
-          type="text"
-          placeholder="您可以透過賣家名稱，訂單編號或商品名稱搜尋"
-          unstyled="true"
-        />
-      </div>
+    <section class="search-div">
+      <i class="pi pi-search mx-2" style="color: #bbb; font-size: 1.2rem"></i>
+      <InputText
+        class="w-full search-input"
+        v-model="value2"
+        type="text"
+        placeholder="您可以透過賣家名稱，訂單編號或商品名稱搜尋"
+        unstyled="true"
+      />
     </section>
   </div>
 </template>
@@ -28,7 +27,7 @@ import { ref } from 'vue';
 
 import InputText from 'primevue/inputtext';
 
-const types = ref([
+const orderStatusTypes = ref([
   '全部',
   '待付款',
   '待出貨',
@@ -40,7 +39,7 @@ const types = ref([
 const value2 = ref();
 </script>
 <style scoped>
-.QmO3Bu {
+.sticky-header {
   background: rgb(255, 255, 255);
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
@@ -52,7 +51,7 @@ const value2 = ref();
   width: 100%;
   z-index: 10;
 }
-.KI5har {
+.order-status-menu {
   align-items: center;
   background: rgb(255, 255, 255);
   border-bottom: 2px solid rgba(0, 0, 0, 0.09);
@@ -69,7 +68,7 @@ const value2 = ref();
   transition: color 0.2s;
   user-select: none;
 }
-.Gv8cvd {
+.search-div {
   align-items: center;
   background: #eaeaea;
   border-radius: 2px;
@@ -80,9 +79,9 @@ const value2 = ref();
   padding: 12px 0;
 }
 .search-input {
-  border: 1px solid transparent; /* 保持边框透明 */
-  box-shadow: none; /* 保持无阴影 */
-  outline: none; /* 取消轮廓 */
+  border: 1px solid transparent;
+  box-shadow: none;
+  outline: none;
   background-color: transparent;
   font-size: 14px;
 }
