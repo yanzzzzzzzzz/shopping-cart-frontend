@@ -20,12 +20,14 @@
         unstyled="true"
       />
     </section>
+    <PurchaseItem />
   </div>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
 
 import InputText from 'primevue/inputtext';
+import PurchaseItem from '@/components/PurchaseItem.vue';
 
 const orderStatusTypes = ref([
   '全部',
