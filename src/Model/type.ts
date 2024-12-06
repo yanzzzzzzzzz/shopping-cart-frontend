@@ -102,3 +102,36 @@ export interface checkoutItem {
   price: number;
   totalAmount: number;
 }
+
+// 定義單個商品的介面
+interface OrderItem {
+  id: number;
+  productId: number;
+  productVariantId: number;
+  quantity: number;
+  price: string;
+  totalAmount: string;
+  productName: string;
+  variantName: string;
+  imageId: number;
+  imageUrl: string;
+}
+
+export interface Order {
+  id: number;
+  orderStatus: string;
+  createdAt: string;
+  paymentTime: string | null;
+  shipmentTime: string | null;
+  completedTime: string | null;
+  reviewTime: string | null;
+  storeId: number;
+  shippingAddress: string;
+  totalAmount: string;
+  shippingFee: string;
+  couponUsed: string | null;
+  paymentMethod: string;
+  paymentStatus: string;
+  userId: number;
+  items: OrderItem[];
+}

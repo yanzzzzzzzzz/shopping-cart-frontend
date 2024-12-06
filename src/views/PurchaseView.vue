@@ -20,15 +20,16 @@
         unstyled="true"
       />
     </section>
-    <PurchaseItem />
+    <PurchaseItem :orders="orders" />
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import InputText from 'primevue/inputtext';
 import PurchaseItem from '@/components/PurchaseItem.vue';
-
+import { getOrderRecordList } from '@/api/order.api';
+import { Order } from '@/Model/type';
 const orderStatusTypes = ref([
   '全部',
   '待付款',
@@ -39,6 +40,11 @@ const orderStatusTypes = ref([
   '退貨/退款',
 ]);
 const value2 = ref();
+const orders = ref<Order[]>([]);
+onMounted(async () => {
+  const response = await getOrderRecordList();
+  orders.value = response.data;
+});
 </script>
 <style scoped>
 .sticky-header {
