@@ -70,6 +70,7 @@ export interface CartItem {
   productVariantId: number;
   userId: number;
   variantName: string;
+  imageId: number;
 }
 
 export interface DecodedPayload {
@@ -91,7 +92,7 @@ export interface CheckoutModel {
   shippingFee: number | null;
   couponUsed: string | null;
   paymentMethod: string;
-  items: Array<checkoutItem>;
+  items: Array<OrderItem>;
 }
 
 export interface checkoutItem {
@@ -104,13 +105,13 @@ export interface checkoutItem {
 }
 
 // 定義單個商品的介面
-interface OrderItem {
+export interface OrderItem {
   id: number;
   productId: number;
   productVariantId: number;
   quantity: number;
-  price: string;
-  totalAmount: string;
+  price: number;
+  totalAmount: number;
   productName: string;
   variantName: string;
   imageId: number;
